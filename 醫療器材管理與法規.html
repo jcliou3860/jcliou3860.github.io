@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRG1100 醫療器材管理與法規 | ROBLOX SYLLABUS QUEST</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka & Noto Sans TC for Blocky/Gaming Look -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rbx-bg: #1B1D1F;
+      --rbx-card: #232527;
+      --rbx-panel: #2B2D31;
+      --rbx-blue: #00A2FF;
+      --rbx-green: #02B757;
+      --rbx-orange: #F68802;
+      --rbx-red: #EF4444;
+      --rbx-gold: #FFD700;
+      --rbx-purple: #A855F7;
+    }
+
+    body {
+      background-color: var(--rbx-bg);
+      color: #F3F4F6;
+      font-family: 'Noto Sans TC', 'Fredoka', sans-serif;
+      /* Roblox Classic Studs Pattern Background */
+      background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.06) 18%, transparent 20%),
+        radial-gradient(rgba(0, 0, 0, 0.35) 18%, transparent 22%);
+      background-position: 0 0, 2px 2px;
+      background-size: 28px 28px;
+      overflow-x: hidden;
+    }
+
+    .font-rbx {
+      font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    /* 3D Blocky Card & Buttons */
+    .rbx-card {
+      background-color: var(--rbx-card);
+      border: 2px solid #393B3D;
+      border-bottom: 6px solid #111214;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .rbx-panel {
+      background-color: var(--rbx-panel);
+      border: 2px solid #3F4248;
+      border-bottom: 5px solid #16181A;
+      border-radius: 10px;
+    }
+
+    .rbx-btn {
+      font-weight: 900;
+      border-radius: 8px;
+      transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+    .rbx-btn:active:not(:disabled) {
+      transform: translateY(4px);
+      border-bottom-width: 2px !important;
+      margin-bottom: 4px;
+    }
+    .rbx-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .rbx-btn-blue {
+      background-color: #00A2FF;
+      color: #FFFFFF;
+      border: 2px solid #38B6FF;
+      border-bottom: 6px solid #006BA8;
+    }
+    .rbx-btn-blue:hover:not(:disabled) { background-color: #19ACFF; }
+
+    .rbx-btn-green {
+      background-color: #02B757;
+      color: #FFFFFF;
+      border: 2px solid #2CE080;
+      border-bottom: 6px solid #017838;
+    }
+    .rbx-btn-green:hover:not(:disabled) { background-color: #08C963; }
+
+    .rbx-btn-orange {
+      background-color: #F68802;
+      color: #FFFFFF;
+      border: 2px solid #FFA02B;
+      border-bottom: 6px solid #B25F00;
+    }
+    .rbx-btn-orange:hover:not(:disabled) { background-color: #FF9514; }
+
+    .rbx-btn-dark {
+      background-color: #393B3D;
+      color: #E5E7EB;
+      border: 2px solid #4E5154;
+      border-bottom: 6px solid #1E2022;
+    }
+    .rbx-btn-dark:hover:not(:disabled) { background-color: #46494C; }
+
+    .rbx-btn-red {
+      background-color: #EF4444;
+      color: #FFFFFF;
+      border: 2px solid #F87171;
+      border-bottom: 6px solid #991B1B;
+    }
+
+    /* Obby Neon Path Animation */
+    @keyframes neonPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(0, 162, 255, 0.6), 0 0 20px rgba(0, 162, 255, 0.3); }
+      50% { box-shadow: 0 0 18px rgba(2, 183, 87, 0.8), 0 0 30px rgba(2, 183, 87, 0.4); }
+    }
+    .obby-active-glow {
+      animation: neonPulse 2.2s infinite ease-in-out;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+    .animate-float {
+      animation: floatSlow 3s ease-in-out infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #16181A; }
+    ::-webkit-scrollbar-thumb { background: #393B3D; border-radius: 5px; border: 2px solid #16181A; }
+    ::-webkit-scrollbar-thumb:hover { background: #00A2FF; }
+
+    /* Stud Top Strip Decoration */
+    .stud-strip {
+      height: 10px;
+      background-image: radial-gradient(rgba(255,255,255,0.22) 35%, transparent 40%);
+      background-size: 16px 10px;
+      background-repeat: repeat-x;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#00A2FF] selection:text-white">
+
+  <!-- Confetti Canvas Overlay -->
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- Toast Notification Banner -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- Custom Modal (For Name Edit / Reset Progress / Capstone Report) -->
+  <div id="custom-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="rbx-card max-w-lg w-full p-6 relative animate-float" style="animation-duration: 0s;">
+      <div class="stud-strip -mx-6 -mt-6 mb-4 bg-[#00A2FF] rounded-t-lg"></div>
+      <h3 id="modal-title" class="text-xl font-black text-white mb-2 font-rbx">系統提示</h3>
+      <div id="modal-body" class="text-sm text-gray-300 mb-6 leading-relaxed"></div>
+      <div id="modal-actions" class="flex justify-end gap-3"></div>
+    </div>
+  </div>
+
+  <!-- ==================== TOP PLAYER HUD ==================== -->
+  <header class="sticky top-0 z-40 bg-[#16181A]/95 backdrop-blur-md border-b-4 border-[#0E1012] shadow-2xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        
+        <!-- Left: Brand & Course Title -->
+        <div class="flex items-center gap-3">
+          <!-- Roblox Style Tilted Square Logo -->
+          <div onclick="switchTab('map')" class="cursor-pointer group flex items-center gap-2.5">
+            <div class="w-11 h-11 rounded-lg bg-[#00A2FF] border-2 border-[#66C7FF] border-b-4 border-b-[#005F96] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+              <div class="w-5 h-5 border-4 border-white rotate-12 bg-[#16181A]"></div>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-black px-1.5 py-0.5 rounded bg-[#EF4444] text-white tracking-wider uppercase font-rbx">OBBY QUEST</span>
+                <span class="text-xs font-bold text-[#00A2FF]">1151 醫工系 B12</span>
+              </div>
+              <h1 class="text-base sm:text-lg font-black tracking-tight text-white leading-tight">
+                PRG1100 醫療器材管理與法規
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center: Player Avatar & XP Progress Bar -->
+        <div class="flex items-center gap-3 bg-[#232527] px-3 py-1.5 rounded-xl border-2 border-[#393B3D] flex-1 max-w-md min-w-[260px]">
+          <!-- SVG Blocky Player Avatar -->
+          <div onclick="openNameModal()" title="點擊修改玩家名稱" class="cursor-pointer relative shrink-0 w-11 h-11 rounded-lg bg-[#1B1D1F] border-2 border-[#FFD700] flex items-center justify-center overflow-hidden group">
+            <svg viewBox="0 0 64 64" class="w-10 h-10">
+              <!-- Head (Classic Roblox Yellow) -->
+              <rect x="20" y="4" width="24" height="6" rx="2" fill="#F5CD2F"/>
+              <rect x="16" y="8" width="32" height="24" rx="4" fill="#F5CD2F" stroke="#111" stroke-width="2"/>
+              <!-- Safety Goggles / MedTech Glasses -->
+              <rect x="18" y="14" width="12" height="8" rx="2" fill="#00A2FF" stroke="#111" stroke-width="1.5"/>
+              <rect x="34" y="14" width="12" height="8" rx="2" fill="#00A2FF" stroke="#111" stroke-width="1.5"/>
+              <line x1="30" y1="18" x2="34" y2="18" stroke="#111" stroke-width="2"/>
+              <!-- Classic Smile -->
+              <path d="M 25 26 Q 32 30 39 26" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Torso (Lab Coat / Classic Blue Shirt) -->
+              <rect x="12" y="34" width="40" height="26" rx="3" fill="#00A2FF" stroke="#111" stroke-width="2"/>
+              <polygon points="24,34 32,46 40,34" fill="#FFFFFF"/>
+              <!-- Red Cross Badge on Chest -->
+              <rect x="38" y="42" width="8" height="8" rx="1" fill="#FFFFFF"/>
+              <path d="M42 43.5 v5 M39.5 46 h5" stroke="#EF4444" stroke-width="2"/>
+            </svg>
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-[10px] font-bold text-white transition-opacity">改名</div>
+          </div>
+
+          <!-- Level & XP Bar -->
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between text-xs mb-1">
+              <button onclick="openNameModal()" class="font-black text-white hover:text-[#00A2FF] truncate flex items-center gap-1" title="點擊修改名稱">
+                <span id="hud-player-name">BME_Builder_01</span>
+                <span class="text-[10px] text-gray-400">✏️</span>
+              </button>
+              <span id="hud-level-badge" class="font-black text-[#FFD700] shrink-0">Lv.1 實習研發員</span>
+            </div>
+            <!-- Progress Bar -->
+            <div class="w-full h-4 bg-[#111214] rounded-md p-0.5 border border-[#393B3D] relative overflow-hidden">
+              <div id="hud-xp-bar" class="h-full bg-gradient-to-r from-[#00A2FF] to-[#02B757] rounded-sm transition-all duration-500" style="width: 0%"></div>
+              <div id="hud-xp-text" class="absolute inset-0 flex items-center justify-center text-[10px] font-black text-white drop-shadow">
+                0 / 250 XP
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Currency, Badges & Quick Toggles -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- StudyBux -->
+          <div class="bg-[#232527] border-2 border-[#393B3D] px-2.5 py-1.5 rounded-lg flex items-center gap-1.5" title="StudyBux 學習代幣">
+            <span class="w-5 h-5 rounded-full bg-[#FFD700] text-[#111] font-black text-xs flex items-center justify-center border border-yellow-200 shadow">R$</span>
+            <span id="hud-bux" class="font-black text-sm text-[#FFD700] font-rbx">0</span>
+          </div>
+
+          <!-- Badges Count -->
+          <div onclick="switchTab('badges')" class="cursor-pointer bg-[#232527] hover:border-[#00A2FF] border-2 border-[#393B3D] px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors" title="點擊查看徽章與總整沙盒">
+            <span class="text-sm">🏅</span>
+            <span id="hud-badges" class="font-black text-sm text-white font-rbx">0/8</span>
+          </div>
+
+          <!-- Unlock All Mode Toggle (Teacher / Free Roam) -->
+          <button id="btn-unlock-mode" onclick="toggleUnlockAll()" class="rbx-btn rbx-btn-dark px-2.5 py-1.5 text-xs" title="開啟後可自由點擊任一關卡，不受闖關順序限制">
+            <span id="unlock-mode-icon">🔒</span>
+            <span id="unlock-mode-text" class="hidden md:inline">闖關模式</span>
+          </button>
+
+          <!-- SFX Toggle -->
+          <button id="btn-sfx" onclick="toggleSfx()" class="rbx-btn rbx-btn-dark px-2.5 py-1.5 text-xs" title="切換 Web Audio 合成音效">
+            <span id="sfx-icon">🔊</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Navigation Tabs Bar -->
+      <div class="flex items-center gap-2 mt-2.5 pt-2 border-t border-[#2B2D31] overflow-x-auto pb-1">
+        <button id="tab-btn-map" onclick="switchTab('map')" class="rbx-btn rbx-btn-blue px-3.5 py-1.5 text-xs sm:text-sm shrink-0">
+          🗺️ Obby 闖關地圖
+        </button>
+        <button id="tab-btn-stage" onclick="switchTab('stage')" class="rbx-btn rbx-btn-dark px-3.5 py-1.5 text-xs sm:text-sm shrink-0">
+          🎮 關卡任務艙 <span id="nav-current-stage-tag" class="ml-1 px-1.5 py-0.2 bg-black/30 rounded text-[11px]">Stage 1</span>
+        </button>
+        <button id="tab-btn-badges" onclick="switchTab('badges')" class="rbx-btn rbx-btn-dark px-3.5 py-1.5 text-xs sm:text-sm shrink-0">
+          🏆 徽章櫃 & CGM 總整沙盒
+        </button>
+        <button id="tab-btn-portfolio" onclick="switchTab('portfolio')" class="rbx-btn rbx-btn-dark px-3.5 py-1.5 text-xs sm:text-sm shrink-0">
+          📓 自主學習筆記 & 匯出
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-5">
+
+    <!-- ==========================================================
+         VIEW 1: OBBY WORLD MAP (闖關地圖與總整指標導覽)
+    =========================================================== -->
+    <section id="view-map" class="space-y-6">
+      
+      <!-- Hero Course Banner -->
+      <div class="rbx-card p-5 sm:p-6 relative overflow-hidden">
+        <div class="stud-strip -mx-6 -mt-6 mb-4 bg-gradient-to-r from-[#00A2FF] via-[#02B757] to-[#F68802]"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+          <div class="lg:col-span-8 space-y-2.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-[#02B757]/20 border border-[#02B757] text-[#2CE080] text-xs font-black">
+                重點推動課程：總整課程 (Capstone)
+              </span>
+              <span class="px-2.5 py-0.5 rounded bg-[#00A2FF]/20 border border-[#00A2FF] text-[#66C7FF] text-xs font-black">
+                主授：劉健群 老師 & 專家學者群
+              </span>
+              <span class="px-2.5 py-0.5 rounded bg-[#F68802]/20 border border-[#F68802] text-[#FFA02B] text-xs font-black">
+                SDG 3 醫療品質 & 醫材新創
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              歡迎來到「醫療器材管理與法規」Obby 試煉場！
+            </h2>
+            <p class="text-sm text-gray-300 leading-relaxed">
+              醫療器材從研發設計至上市銷售，必須通過重重安全驗證與法規考驗。本系統非單一法規背誦課，而是串聯你過去修習的<strong class="text-[#FFD700]">生醫材料、生理訊號、醫工程式設計與專題實作</strong>，帶你從新手研發員一路闖關至具備 FDA / ISO 10993 / AI 軟體確效實戰力的「醫材總整法規宗師」！
+            </p>
+            <!-- ICRT Filter Pills -->
+            <div class="pt-2 flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold text-gray-400 mr-1">篩選總整指標 (ICRT)：</span>
+              <button onclick="setIcrtFilter('ALL')" id="filter-ALL" class="rbx-btn rbx-btn-blue px-3 py-1 text-xs">全部關卡 (8)</button>
+              <button onclick="setIcrtFilter('I')" id="filter-I" class="rbx-btn rbx-btn-dark px-3 py-1 text-xs">🟦 I 專業知識整合</button>
+              <button onclick="setIcrtFilter('C')" id="filter-C" class="rbx-btn rbx-btn-dark px-3 py-1 text-xs">🟩 C 學習經驗收尾</button>
+              <button onclick="setIcrtFilter('R')" id="filter-R" class="rbx-btn rbx-btn-dark px-3 py-1 text-xs">🟧 R 學習經驗反思</button>
+              <button onclick="setIcrtFilter('T')" id="filter-T" class="rbx-btn rbx-btn-dark px-3 py-1 text-xs">🟪 T 知識過渡銜接</button>
+            </div>
+          </div>
+
+          <!-- Overall Progress Box -->
+          <div class="lg:col-span-4 rbx-panel p-4 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between border-b border-[#3F4248] pb-2">
+              <span class="text-xs font-black text-gray-300 uppercase">📊 學期總整通關進度</span>
+              <span id="map-overall-percent" class="text-lg font-black text-[#02B757] font-rbx">0%</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="bg-[#1B1D1F] p-2 rounded-lg border border-[#393B3D]">
+                <div id="stat-tasks-done" class="text-base font-black text-[#00A2FF] font-rbx">0/24</div>
+                <div class="text-[11px] text-gray-400">探索任務</div>
+              </div>
+              <div class="bg-[#1B1D1F] p-2 rounded-lg border border-[#393B3D]">
+                <div id="stat-boss-done" class="text-base font-black text-[#02B757] font-rbx">0/8</div>
+                <div class="text-[11px] text-gray-400">擊敗 Boss</div>
+              </div>
+              <div class="bg-[#1B1D1F] p-2 rounded-lg border border-[#393B3D]">
+                <div id="stat-notes-done" class="text-base font-black text-[#FFD700] font-rbx">0/8</div>
+                <div class="text-[11px] text-gray-400">反思筆記</div>
+              </div>
+            </div>
+            <button onclick="jumpToActiveStage()" class="rbx-btn rbx-btn-green w-full py-2 text-sm">
+              🚀 繼續挑戰目前關卡
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICRT Capstone Indicators Breakdown Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div class="rbx-panel p-3.5 border-l-4 border-l-[#00A2FF]">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-black px-2 py-0.5 rounded bg-[#00A2FF]/20 text-[#66C7FF]">I - Integration</span>
+            <span class="text-xs text-gray-400 font-bold">專業知識整合</span>
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed">連結生醫材料、生理量測、醫工程式設計與各國法規，形成完整醫材開發概念。</p>
+        </div>
+        <div class="rbx-panel p-3.5 border-l-4 border-l-[#02B757]">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-black px-2 py-0.5 rounded bg-[#02B757]/20 text-[#2CE080]">C - Conclusion</span>
+            <span class="text-xs text-gray-400 font-bold">學習經驗收尾</span>
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed">透過 ISO 10993 生物相容性、FDA 認證與滅菌確效，驗收產品安全評估能力。</p>
+        </div>
+        <div class="rbx-panel p-3.5 border-l-4 border-l-[#F68802]">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-black px-2 py-0.5 rounded bg-[#F68802]/20 text-[#FFA02B]">R - Reflection</span>
+            <span class="text-xs text-gray-400 font-bold">學習經驗反思</span>
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed">藉由醫學倫理案例、設計管制與 GMP 規範，檢視研發過程之不足與社會責任。</p>
+        </div>
+        <div class="rbx-panel p-3.5 border-l-4 border-l-[#A855F7]">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-black px-2 py-0.5 rounded bg-[#A855F7]/20 text-[#D8B4FE]">T - Transition</span>
+            <span class="text-xs text-gray-400 font-bold">知識過渡銜接</span>
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed">掌握軟體確效、上市後監控與「非侵入式血糖機」PBL 實戰，銜接產業職涯。</p>
+        </div>
+      </div>
+
+      <!-- Obby Stages Grid Map -->
+      <div id="obby-map-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+      <!-- Course Grading & Core Competency Footer Box -->
+      <div class="rbx-card p-5">
+        <h3 class="text-sm font-black text-[#FFD700] uppercase mb-3 flex items-center gap-2">
+          <span>📐 課綱核心能力權重與總整評量架構</span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <div class="rbx-panel p-3">
+            <div class="font-black text-[#00A2FF] text-base font-rbx">30%</div>
+            <div class="font-bold text-white mt-0.5">合理判斷的專業能力</div>
+            <div class="text-gray-400 text-[11px] mt-1">法規判讀、產品分類與安全標準適用</div>
+          </div>
+          <div class="rbx-panel p-3">
+            <div class="font-black text-[#02B757] text-base font-rbx">30%</div>
+            <div class="font-bold text-white mt-0.5">持續成長與溝通反思</div>
+            <div class="text-gray-400 text-[11px] mt-1">倫理反思、PBL 團隊討論與自主學習</div>
+          </div>
+          <div class="rbx-panel p-3">
+            <div class="font-black text-[#F68802] text-base font-rbx">20%</div>
+            <div class="font-bold text-white mt-0.5">邏輯與批判思維</div>
+            <div class="text-gray-400 text-[11px] mt-1">設計管制驗證、風險分析與問題解決</div>
+          </div>
+          <div class="rbx-panel p-3">
+            <div class="font-black text-[#A855F7] text-base font-rbx">10%</div>
+            <div class="font-bold text-white mt-0.5">跨領域創新實作能力</div>
+            <div class="text-gray-400 text-[11px] mt-1">整合軟硬體、材料與生醫感測技術</div>
+          </div>
+          <div class="rbx-panel p-3">
+            <div class="font-black text-[#FFD700] text-base font-rbx">10%</div>
+            <div class="font-bold text-white mt-0.5">數據詮釋及產業化能力</div>
+            <div class="text-gray-400 text-[11px] mt-1">臨床評估報告、查驗登記與上市規劃</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 2: STAGE QUEST PANEL (關卡任務艙：知識庫 + 任務 + NPC + Boss戰)
+    =========================================================== -->
+    <section id="view-stage" class="hidden space-y-6">
+      
+      <!-- Stage Header Bar -->
+      <div class="rbx-card p-5 relative overflow-hidden">
+        <div id="stage-header-strip" class="stud-strip -mx-5 -mt-5 mb-4 bg-[#00A2FF]"></div>
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="switchTab('map')" class="rbx-btn rbx-btn-dark px-2.5 py-1 text-xs">
+                ⬅ 返回地圖
+              </button>
+              <span id="stage-view-num" class="px-2.5 py-0.5 rounded bg-[#00A2FF] text-white font-black text-xs font-rbx">STAGE 1</span>
+              <div id="stage-view-icrt" class="flex gap-1"></div>
+              <span id="stage-view-status" class="text-xs font-bold px-2 py-0.5 rounded bg-[#2B2D31] text-gray-300">進行中</span>
+            </div>
+            <h2 id="stage-view-title" class="text-xl sm:text-2xl font-black text-white pt-1">關卡標題</h2>
+            <p id="stage-view-subtitle" class="text-xs sm:text-sm text-gray-400">對應課綱主題與授課師資</p>
+          </div>
+
+          <!-- Stage Navigation Prev / Next -->
+          <div class="flex items-center gap-2">
+            <button id="btn-prev-stage" onclick="navigateStage(-1)" class="rbx-btn rbx-btn-dark px-3 py-2 text-xs">
+              ◀ 上一關
+            </button>
+            <button id="btn-next-stage" onclick="navigateStage(1)" class="rbx-btn rbx-btn-blue px-3 py-2 text-xs">
+              下一關 ▶
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main 2-Column Layout inside Stage -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column (7 cols): Knowledge Base & Interactive Tasks -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- 1. Core Knowledge Base -->
+          <div class="rbx-card p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-[#393B3D] pb-3">
+              <h3 class="text-base sm:text-lg font-black text-[#00A2FF] flex items-center gap-2">
+                <span>📚 觀念補給站 (Syllabus Core Knowledge)</span>
+              </h3>
+              <span class="text-xs text-gray-400 font-bold">研讀課綱精華</span>
+            </div>
+            <div id="stage-knowledge-list" class="space-y-3">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- 2. Interactive Self-Directed Tasks -->
+          <div class="rbx-card p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-[#393B3D] pb-3">
+              <div>
+                <h3 class="text-base sm:text-lg font-black text-[#02B757] flex items-center gap-2">
+                  <span>☑️ 自主探索任務清單 (Quest Tasks)</span>
+                </h3>
+                <p class="text-xs text-gray-400 mt-0.5">每完成一項自主學習行動，立即獲得 <strong class="text-[#FFD700]">+25 XP</strong> 與 <strong class="text-[#FFD700]">+10 R$</strong></p>
+              </div>
+              <span id="stage-task-counter" class="px-2.5 py-1 rounded-lg bg-[#1B1D1F] border border-[#393B3D] text-xs font-black text-[#02B757] font-rbx">0 / 3 完成</span>
+            </div>
+            <div id="stage-task-list" class="space-y-3">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Quick Reflection Input inside Stage -->
+          <div class="rbx-card p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm sm:text-base font-black text-[#FFD700] flex items-center gap-2">
+                <span>✍️ 本關卡 ICRT 自主學習微筆記</span>
+              </h3>
+              <span id="stage-note-saved-indicator" class="text-xs text-[#02B757] font-bold opacity-0 transition-opacity">✓ 已自動儲存</span>
+            </div>
+            <p class="text-xs text-gray-400">記錄你在本週主題（如法規分類、ISO 10993、設計管制或 AI 確效）的心得與專題連結，將自動同步至「學習歷程匯出」分頁：</p>
+            <textarea id="stage-quick-note" oninput="saveStageNote()" rows="3" placeholder="在此輸入本關卡的學習重點、疑問或與『非侵入式血糖機』專題的連結想法..." class="w-full bg-[#16181A] border-2 border-[#393B3D] focus:border-[#00A2FF] rounded-lg p-3 text-sm text-white placeholder-gray-500 outline-none transition-colors"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Right Column (5 cols): NPC Mentor Guide & Boss Quiz Challenge -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- 3. Socratic NPC Mentor Box -->
+          <div class="rbx-card p-5 relative overflow-hidden border-t-4 border-t-[#FFD700]">
+            <div class="flex items-start gap-4">
+              <!-- SVG Blocky Expert NPC Avatar -->
+              <div id="npc-avatar-box" class="w-16 h-16 rounded-xl bg-[#16181A] border-2 border-[#FFD700] shrink-0 flex items-center justify-center shadow-inner">
+                <!-- Dynamic SVG inserted by JS -->
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-[#FFD700] text-[#111] font-black text-[10px] uppercase">NPC 專家導師</span>
+                  <span id="npc-tip-index" class="text-xs font-bold text-gray-400">錦囊 1 / 3</span>
+                </div>
+                <h4 id="npc-name" class="text-base font-black text-white mt-1 truncate">授課專家</h4>
+                <p class="text-[11px] text-[#00A2FF] font-bold">點擊下方按鈕切換蘇格拉底式提問錦囊</p>
+              </div>
+            </div>
+
+            <!-- Speech Bubble -->
+            <div class="mt-4 bg-[#16181A] border-2 border-[#393B3D] rounded-xl p-4 relative">
+              <p id="npc-dialogue-text" class="text-sm text-gray-200 leading-relaxed font-medium min-h-[72px]">
+                載入導師對話中...
+              </p>
+              <div class="flex items-center justify-between mt-3 pt-2 border-t border-[#2B2D31]">
+                <div class="flex gap-1.5" id="npc-dots"></div>
+                <button onclick="nextNpcTip()" class="rbx-btn rbx-btn-orange px-3 py-1 text-xs">
+                  💡 下一個觀念錦囊
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Checkpoint Boss Quiz Challenge -->
+          <div class="rbx-card p-5 space-y-4 border-t-4 border-t-[#EF4444]">
+            <div class="flex items-center justify-between border-b border-[#393B3D] pb-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-[#EF4444] text-white text-[10px] font-black uppercase font-rbx">BOSS BATTLE</span>
+                  <h3 class="text-base sm:text-lg font-black text-white">⚔️ 守關 Boss 觀念挑戰</h3>
+                </div>
+                <p class="text-xs text-gray-400 mt-0.5">全部答對即可擊敗守關 Boss，解鎖專屬徽章與下一關（<strong class="text-[#FFD700]">+100 XP / +50 R$</strong>）</p>
+              </div>
+              <div id="stage-boss-badge-preview" class="text-2xl" title="本關卡專屬徽章">🏅</div>
+            </div>
+
+            <!-- Quiz Questions Container -->
+            <div id="stage-quiz-container" class="space-y-5">
+              <!-- Populated by JS -->
+            </div>
+
+            <!-- Quiz Feedback & Action Button -->
+            <div id="stage-quiz-result" class="hidden p-3.5 rounded-xl border-2 text-xs sm:text-sm leading-relaxed"></div>
+
+            <div class="pt-2 flex flex-wrap gap-3">
+              <button id="btn-submit-quiz" onclick="submitStageQuiz()" class="rbx-btn rbx-btn-green flex-1 py-2.5 text-sm">
+                ⚡ 發動攻擊（提交答案）
+              </button>
+              <button onclick="resetStageQuizUI()" class="rbx-btn rbx-btn-dark px-3 py-2.5 text-xs" title="重新作答本關測驗">
+                🔄 重測
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 3: BADGES & NON-INVASIVE CGM CAPSTONE SANDBOX
+    =========================================================== -->
+    <section id="view-badges" class="hidden space-y-8">
+      
+      <!-- Part A: 8 Badges Collection Vault -->
+      <div class="rbx-card p-5 sm:p-6">
+        <div class="stud-strip -mx-6 -mt-6 mb-4 bg-[#FFD700]"></div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+              <span>🏆 醫材法規技能徽章收藏櫃 (Roblox Badge Vault)</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-400">擊敗各關卡的守關 Boss 即可點亮對應的專業法規徽章！</p>
+          </div>
+          <span id="vault-badge-count" class="px-3 py-1 rounded-lg bg-[#16181A] border-2 border-[#FFD700] text-[#FFD700] font-black text-sm font-rbx">
+            已收集 0 / 8 枚徽章
+          </span>
+        </div>
+
+        <div id="badges-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Part B: Non-Invasive Continuous Glucose Monitor (CGM) Capstone Simulator -->
+      <div class="rbx-card p-5 sm:p-6 relative overflow-hidden">
+        <div class="stud-strip -mx-6 -mt-6 mb-5 bg-gradient-to-r from-[#02B757] via-[#00A2FF] to-[#A855F7]"></div>
+        
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-[#393B3D] pb-4 mb-6">
+          <div class="space-y-1 max-w-3xl">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-[#02B757] text-white text-xs font-black">課綱重點推動項目</span>
+              <span class="px-2.5 py-0.5 rounded bg-[#A855F7]/20 border border-[#A855F7] text-[#D8B4FE] text-xs font-black">I + C + R + T 期末總整沙盒</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black text-white pt-1">
+              📟 「非侵入式連續監控血糖機 (Non-invasive CGM)」上市法規模擬器
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+              課綱指定期末總整案例：假設你們團隊研發出一款透過<strong>光學與微電流感測技術貼附於手腕皮膚 14 天</strong>，並結合<strong>手機 AI 演算法即時推算血糖曲線與低血糖預警</strong>的「非侵入式連續監控血糖機」。請在下方為這項創新醫材配置正確的法規與安全驗證藍圖！
+            </p>
+          </div>
+          <div class="rbx-panel px-4 py-3 text-center shrink-0">
+            <div class="text-[11px] text-gray-400 font-bold">目前法規合規度評分</div>
+            <div id="cgm-score-display" class="text-2xl font-black text-[#FFD700] font-rbx">尚未診斷</div>
+          </div>
+        </div>
+
+        <!-- Simulator Configuration Form (4 Core Dimensions) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          
+          <!-- Config 1: Classification & Regulatory Pathway -->
+          <div class="rbx-panel p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black px-2 py-0.5 rounded bg-[#00A2FF]/20 text-[#66C7FF]">1. I 專業整合：產品分類分級與美國 FDA 途徑</span>
+            </div>
+            <label class="block text-sm font-bold text-white">
+              這台「非侵入式連續監控血糖機」宣稱可供糖尿病患日常監測血糖趨勢與低血糖警示，請問應如何規劃法規分級與上市途徑？
+            </label>
+            <select id="cgm-opt-class" onchange="saveCgmConfig()" class="w-full bg-[#16181A] border-2 border-[#393B3D] focus:border-[#00A2FF] rounded-lg p-2.5 text-xs sm:text-sm text-white outline-none">
+              <option value="">-- 請選擇分類與認證策略 --</option>
+              <option value="wrong1">因為是非侵入式（沒針頭），屬於一般消費性電子手環，免向 TFDA/FDA 申請醫材認證</option>
+              <option value="correct">屬於中高度風險（Class II 或 De Novo 新穎第 II 類 / Class III）醫療器材；須依預期用途向 TFDA 辦理查驗登記，美國市場則評估 510(k) / De Novo 或 PMA 並檢附臨床準確度數據 (CER)</option>
+              <option value="wrong2">屬於第一等級（Class I）低風險機械式醫材，跟紗布一樣只要上網登錄即可販售</option>
+            </select>
+          </div>
+
+          <!-- Config 2: ISO 10993 Biocompatibility -->
+          <div class="rbx-panel p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black px-2 py-0.5 rounded bg-[#02B757]/20 text-[#2CE080]">2. C 經驗收尾：ISO 10993 生物相容性評估</span>
+            </div>
+            <label class="block text-sm font-bold text-white">
+              感測貼片需連續貼附於病患完整皮膚表面達 14 天（24小時~30天，中長期表面接觸），必測的 ISO 10993 基礎生物相容性組合為何？
+            </label>
+            <select id="cgm-opt-bio" onchange="saveCgmConfig()" class="w-full bg-[#16181A] border-2 border-[#393B3D] focus:border-[#02B757] rounded-lg p-2.5 text-xs sm:text-sm text-white outline-none">
+              <option value="">-- 請選擇 ISO 10993 生物相容性測試方案 --</option>
+              <option value="wrong1">不刺破皮膚就完全不會過敏，零生物相容性測試需求</option>
+              <option value="correct">必須執行 ISO 10993-5 細胞毒性試驗 (Cytotoxicity)、ISO 10993-10 皮膚致敏性試驗 (Skin Sensitization) 與皮膚刺激試驗，確認親膚膠材與外殼萃取液之安全性</option>
+              <option value="wrong2">只需執行 ISO 10993-4 溶血試驗 (Hemolysis Test)，不需做細胞毒性與皮膚致敏測試</option>
+            </select>
+          </div>
+
+          <!-- Config 3: Design Control, Sterilization & GMP -->
+          <div class="rbx-panel p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black px-2 py-0.5 rounded bg-[#F68802]/20 text-[#FFA02B]">3. R 經驗反思：設計管制、滅菌清潔與 GMP 製造</span>
+            </div>
+            <label class="block text-sm font-bold text-white">
+              在將實驗室原型轉移至量產工廠的過程中，設計管制（Design Control）與製造品質應如何落實？
+            </label>
+            <select id="cgm-opt-gmp" onchange="saveCgmConfig()" class="w-full bg-[#16181A] border-2 border-[#393B3D] focus:border-[#F68802] rounded-lg p-2.5 text-xs sm:text-sm text-white outline-none">
+              <option value="">-- 請選擇設計管制與製程確效策略 --</option>
+              <option value="correct">建立 ISO 13485 / GMP 品質系統，落實「Design Output Meets Design Input」之設計驗證（含電氣安全 IEC 60601、精度驗證）、臨床設計確效、構型管理 (Configuration Mgmt) 與關鍵製程確效</option>
+              <option value="wrong1">將內含精密光學感測器與鋰電池的主機直接丟進高溫高壓蒸氣鍋爐滅菌，且不留任何測試紀錄</option>
+              <option value="wrong2">研究生畢業前把程式碼存在個人隨身碟就算完成構型管理與 GMP 查驗登記</option>
+            </select>
+          </div>
+
+          <!-- Config 4: AI/ML SaMD Validation & Post-Market Surveillance -->
+          <div class="rbx-panel p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black px-2 py-0.5 rounded bg-[#A855F7]/20 text-[#D8B4FE]">4. T 知識銜接：AI 演算法、軟體確效與上市後監控</span>
+            </div>
+            <label class="block text-sm font-bold text-white">
+              針對將光學訊號轉換為血糖讀值的 AI 模型與手機 App，以及上市後病患安全管理，應採取何種策略？
+            </label>
+            <select id="cgm-opt-ai" onchange="saveCgmConfig()" class="w-full bg-[#16181A] border-2 border-[#393B3D] focus:border-[#A855F7] rounded-lg p-2.5 text-xs sm:text-sm text-white outline-none">
+              <option value="">-- 請選擇智慧醫材確效與上市後監控策略 --</option>
+              <option value="wrong1">AI 模型只用 10 位 20 歲健康大學生的數據訓練即可，上市後若讀值不準害病患打錯胰島素，由病患自行負責</option>
+              <option value="correct">執行醫療器材軟體確效 (IEC 62304) 與 AI 演算法跨族群臨床驗證；導入 ISO 14971 風險控制（如訊號異常警報），並建立上市後監控 (PMS)、不良事件通報與 ISO/TS 19218 譯碼分析機制</option>
+              <option value="wrong2">允許 AI 在病患手機上無限制隨機自我改寫演算法，且不進行任何軟體版本控管與測試</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Evaluate Button & Diagnostic Output -->
+        <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+          <button onclick="evaluateCgmSandbox()" class="rbx-btn rbx-btn-green px-6 py-3 text-sm sm:text-base">
+            🔬 執行「非侵入式血糖機」總整法規合規檢測 (+150 XP 首次滿分獎勵)
+          </button>
+          <span class="text-xs text-gray-400">檢測結果將自動納入你的期末學習歷程報告中</span>
+        </div>
+
+        <div id="cgm-diagnostic-box" class="hidden mt-5 p-4 rounded-xl border-2 space-y-2 text-xs sm:text-sm"></div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================
+         VIEW 4: QUEST LOG & PORTFOLIO EXPORT (自主學習筆記與歷程匯出)
+    =========================================================== -->
+    <section id="view-portfolio" class="hidden space-y-6">
+      
+      <div class="rbx-card p-5 sm:p-6">
+        <div class="stud-strip -mx-6 -mt-6 mb-4 bg-[#A855F7]"></div>
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#393B3D] pb-4 mb-5">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+              <span>📓 總整課程自主學習歷程檔案 (ICRT Quest Log & Portfolio)</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-400 mt-1">
+              彙整你在 8 大關卡與「非侵入式連續監控血糖機」總整案例中的反思與學習成果，一鍵匯出供期末報告或自主學習週使用。
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="copyPortfolioMarkdown()" class="rbx-btn rbx-btn-blue px-4 py-2 text-xs sm:text-sm">
+              📋 複製 Markdown 總整報告
+            </button>
+            <button onclick="downloadPortfolioFile()" class="rbx-btn rbx-btn-green px-4 py-2 text-xs sm:text-sm">
+              💾 下載 .TXT 學習歷程檔
+            </button>
+            <button onclick="openResetModal()" class="rbx-btn rbx-btn-red px-3 py-2 text-xs">
+              🗑️ 重置進度
+            </button>
+          </div>
+        </div>
+
+        <!-- Capstone Final Reflection Synthesis Prompt -->
+        <div class="rbx-panel p-4 mb-6 space-y-3 border-l-4 border-l-[#FFD700]">
+          <div class="flex items-center justify-between">
+            <label class="text-sm sm:text-base font-black text-[#FFD700]">
+              🌟 期末總整自我檢視 (Capstone I-C-R-T Overall Synthesis)
+            </label>
+            <span class="text-xs text-gray-400">自動儲存於瀏覽器</span>
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed">
+            請綜合檢視自己在本課程中的收穫：(1) 如何將過去醫工系所學<strong>整合 (I)</strong> 至醫材法規？ (2) 對生物相容性與 FDA 認證的<strong>收尾掌握 (C)</strong>？ (3) 檢視自身或專題團隊在設計管制、品質與倫理上的<strong>能力與不足 (R)</strong>？ (4) 未來進入醫材研發、法規或新創產業的<strong>職涯銜接規劃 (T)</strong>？
+          </p>
+          <textarea id="portfolio-overall-reflection" oninput="saveOverallReflection()" rows="4" placeholder="請在此撰寫你的學期總整反思與未來醫材職涯規劃..." class="w-full bg-[#16181A] border-2 border-[#393B3D] focus:border-[#FFD700] rounded-lg p-3 text-sm text-white placeholder-gray-500 outline-none"></textarea>
+        </div>
+
+        <!-- 8 Stages Notes Editor List -->
+        <h3 class="text-base font-black text-white mb-3">📌 各關卡自主學習筆記總覽（可直接在此編輯補充）</h3>
+        <div id="portfolio-notes-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#111214] border-t-2 border-[#232527] py-4 px-4 text-center text-xs text-gray-500 mt-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <strong class="text-gray-300">PRG1100 醫療器材管理與法規 (Medical Device Regulations & Compliance)</strong> | 醫學工程學系三年級 (1151學期)
+      </div>
+      <div>
+        Roblox Obby Gamified Syllabus Quest • I-C-R-T 總整課程自主學習系統
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT LOGIC & SYLLABUS DATA ==================== -->
+  <script>
+    /********************************************************************
+     * 1. COMPLETE SYLLABUS DATA (8 STAGES, ICRT, EXPERTS, TASKS, QUIZZES)
+     ********************************************************************/
+    const STAGES_DATA = [
+      {
+        id: 1,
+        code: "STAGE 1",
+        title: "新手村啟航：醫材創業、法規架構與台灣查驗登記",
+        subtitle: "週次主題：醫療器材課程簡介、Special Topic、台灣醫療器材的管理及查驗登記介紹",
+        instructors: "劉健群 老師、楊正昌 老師、邵明遠 老師",
+        icrt: ["I"],
+        badgeName: "醫材領航創業者",
+        badgeIcon: "🚀",
+        badgeColor: "#00A2FF",
+        npcStyle: { hat: "#00A2FF", shirt: "#1E3A8A", glasses: true },
+        knowledge: [
+          {
+            tag: "研發與法規同步",
+            text: "醫療器材從研發設計至上市銷售，必須通過多項安全驗證與法規測試以確保病人使用安全。醫工研發人員在「概念與研發初期」就必須同時導入法規準備，避免後期重工、高昂延誤或上市失敗。"
+          },
+          {
+            tag: "I 專業知識整合",
+            text: "本課程非單一法規背誦課，而是將先前修習之「生醫材料、生理訊號與儀器、醫學工程程式設計及專題實作」與醫材法規建立連結，呼應 SDG 3（醫療品質）與醫材新創產業發展。"
+          },
+          {
+            tag: "台灣醫材分類分級與查驗登記",
+            text: "依據台灣醫療器材管理法規，醫材依風險程度分為：第一等級（Class I 低風險）、第二等級（Class II 中風險）與第三等級（Class III 高風險），研發團隊須整合產品設計、臨床需求與查驗登記要求。"
+          }
+        ],
+        tasks: [
+          { id: "t1_1", text: "盤點自己過去在醫工系修習過的 1 項專題或實驗技術（如生醫感測電路或生醫材料），思考若要商品化賣進醫院需克服哪些安全問題。" },
+          { id: "t1_2", text: "認識台灣 TFDA 醫療器材分類分級邏輯，查詢「血糖監測系統」或「心電圖機」屬於第幾等級醫療器材。" },
+          { id: "t1_3", text: "比較一般消費性運動手環（僅供健康促進）與「醫療器材（宣稱診斷、監測或治療疾病）」在法規管理上的核心差異。" }
+        ],
+        npcTips: [
+          "嗨！歡迎來到醫材法規 Obby 新手村！很多工程師做出超酷的感測器原型，最後卻無法在醫院使用，你知道為什麼嗎？因為在醫材世界裡，『能動』不等於『安全且合規』！",
+          "思考看看：如果你研發的「非侵入式血糖機」宣稱『可作為胰島素注射劑量依據』，跟宣稱『僅供日常運動參考』，在 TFDA 法規分類分級與審查嚴格度上會有什麼天壤之別？",
+          "記住 I (Integration 專業知識整合) 原則：從今天起，把你的電路設計、材料選擇跟臨床法規要求綁在一起思考，這才是具備創業即戰力的醫工研發人！"
+        ],
+        quizzes: [
+          {
+            q: "1. 為什麼醫學工程研發人員在「產品概念與研發初期」就必須了解並導入醫療器材法規？",
+            options: [
+              "法規只在產品全部做完準備賣的時候才需要看，初期了解只是為了應付考試",
+              "於研發初期將安全驗證與法規要求納入設計，可確保產品品質與病人安全，並避免後期重工、昂貴延誤或無法上市的風險",
+              "因為法規條文裡面會直接提供現成的電路圖與演算法原始碼",
+              "只要取得學術論文發表就自動獲得各國醫療器材上市許可"
+            ],
+            ans: 1,
+            exp: "課綱明確指出：醫材從研發設計至上市須通過安全法規測試，研發人員除重視功能與創新外，更應於研發初期同時準備法規申請，以避免高昂延誤或上市失敗。"
+          },
+          {
+            q: "2. 在台灣與國際醫療器材管理制度中，將醫療器材分為第一、二、三等級（Class I, II, III）的最核心判定依據為何？",
+            options: [
+              "產品的外觀顏色與包裝設計精美度",
+              "製造商公司的員工總人數與資本額",
+              "產品對人體之風險程度（包含侵入性、接觸時間、作用部位與潛在危害等）",
+              "產品是否使用 Type-C 充電線"
+            ],
+            ans: 2,
+            exp: "醫療器材分類分級（Classification）的核心依據為產品對病人及使用者之「風險程度（Risk Level）」，風險越高者查驗登記與臨床驗證要求越嚴格。"
+          }
+        ]
+      },
+      {
+        id: 2,
+        code: "STAGE 2",
+        title: "國際通行證：各國醫材法規、ISO 13485 與醫學倫理",
+        subtitle: "週次主題：各國醫療器材法規介紹、ISO 13485:2016 品質管理系統、醫學倫理-I & II",
+        instructors: "陳維聆 老師、何建志 老師",
+        icrt: ["I", "R"],
+        badgeName: "國際品保與倫理守護者",
+        badgeIcon: "🌍",
+        badgeColor: "#10B981",
+        npcStyle: { hat: "#10B981", shirt: "#065F46", glasses: true },
+        knowledge: [
+          {
+            tag: "各國法規與歐盟架構",
+            text: "跨國上市須掌握產品分類（Classification）、符合性評鑑途徑（Conformity Assessment Route）、基本安全與性能要求（Essential Requirements）、調和標準（Harmonized Standards）、技術文件（Technical File）與臨床評估報告（CER, Clinical Evaluation Report）。"
+          },
+          {
+            tag: "ISO 13485:2016 品質管理系統",
+            text: "ISO 13485 為全球醫療器材產業通用的品質管理系統（QMS）標準，強調以風險為基礎的管控、設計開發追溯性、無菌與清潔要求以及法規依從性。"
+          },
+          {
+            tag: "R 學習經驗反思：醫學倫理 I & II",
+            text: "醫療科技發展伴隨倫理挑戰。透過醫療倫理案例分析，反思醫材研發與臨床試驗中對受試者保護、知情同意、數據誠信與病患福祉之專業倫理判斷與責任。"
+          }
+        ],
+        tasks: [
+          { id: "t2_1", text: "了解技術文件（Technical File）中「臨床評估報告（CER）」的目的：思考為何通過實驗室工程測試後，仍需進行臨床評估？" },
+          { id: "t2_2", text: "整理 ISO 13485:2016 醫療器材品質管理系統的 3 個核心特色（例如：風險導向、可追溯性、法規通報）。" },
+          { id: "t2_3", text: "針對穿戴式或智慧醫材收集病患生理數據之情境，反思工程師應如何落實「知情同意」與避免倫理爭議。" }
+        ],
+        npcTips: [
+          "想把醫材賣到歐盟或全球市場？單靠一張工程測試合格單是不夠的！你必須準備好完整的 Technical File 與 CER（臨床評估報告），證明產品在真人臨床應用上的效益大於風險。",
+          "ISO 13485:2016 不是用來綁住工程師手腳的官僚文件，而是確保你生產出來的第 1 台血糖機跟第 10,000 台血糖機一樣安全可靠的防護網。",
+          "進入 R (Reflection 反思) 時間：當測試數據出現邊緣異常時，如果為了趕上市而隱瞞，會對病人造成什麼傷害？醫工人的倫理底線就是病人的生命線！"
+        ],
+        quizzes: [
+          {
+            q: "1. 在國際醫療器材法規（特別是歐盟制度）之技術文件（Technical File）中，用來系統性評估並證明產品在臨床使用上具備安全性與臨床性能的關鍵報告縮寫為何？",
+            options: [
+              "CER (Clinical Evaluation Report，臨床評估報告)",
+              "VIP (Very Important Person)",
+              "CPU (Central Processing Unit)",
+              "ROI (Return on Investment)"
+            ],
+            ans: 0,
+            exp: "課綱明列：Classification -> Conformity Assessment Route -> Essential Requirements -> Harmonized standards -> Technical File -> Clinical evaluation report (CER)。"
+          },
+          {
+            q: "2. 透過「醫學倫理 I & II」案例分析，醫學工程專業人員在開發醫療器材時應具備何種態度？",
+            options: [
+              "只要技術夠新穎，可以在未告知受試者的情況下偷偷進行人體測試",
+              "反思醫療器材開發與臨床應用可能產生的倫理問題，建立保護受試者、誠實揭露風險與承擔專業社會責任之倫理判斷",
+              "醫學倫理完全是醫師的事，研發工程師只需負責把硬體焊好",
+              "當發現產品有潛在嚴重副作用時，優先刪除不利數據以利順利取證"
+            ],
+            ans: 1,
+            exp: "課綱強調透過醫療倫理案例進行議題分析，反思醫材開發與臨床應用可能產生之倫理問題，建立醫工專業人員應具備之倫理判斷與責任。"
+          }
+        ]
+      },
+      {
+        id: 3,
+        code: "STAGE 3",
+        title: "生醫材料試煉場：ISO 10993 生物相容性評估",
+        subtitle: "週次主題：ISO 10993 生物相容性（課綱核心案例：細胞毒性、致敏、全身毒性、溶血、基因毒性）",
+        instructors: "高志豪 老師",
+        icrt: ["C"],
+        badgeName: "生物相容性煉金術師",
+        badgeIcon: "🧬",
+        badgeColor: "#02B757",
+        npcStyle: { hat: "#02B757", shirt: "#14532D", glasses: false },
+        knowledge: [
+          {
+            tag: "C 學習經驗收尾：生醫材料與安全驗證",
+            text: "本單元將過往修習之「生醫材料」課程知識收尾，轉化為上市必備的 ISO 10993 生物相容性評估與驗證實務，依人體接觸部位與接觸時間決定測試項目。"
+          },
+          {
+            tag: "細胞毒性、皮膚致敏與全身毒性",
+            text: "包含：① ISO 10993-5 細胞毒性試驗 (Cytotoxicity Test)；② ISO 10993-10 皮膚致敏性試驗 (Skin Sensitization, Maximization Method)；③ ISO 10993-11 急性全身毒性與 14 天亞急性靜脈毒性試驗 (Acute / Subacute Intravenous Toxicity)。"
+          },
+          {
+            tag: "血液相容性、熱原與基因毒性三劍客",
+            text: "包含：④ 家兔熱原試驗 (Pyrogen Test, Rabbit-USP)；⑤ 溶血試驗 (Hemolysis Test, ASTM F756 / ISO 10993-4)；⑥ ISO 10993-3 基因毒性試驗組合：Ames Test (細菌回復突變)、Chromosomal Aberration Test (CHO 染色體結構變異)、Mouse Lymphoma (小鼠淋巴瘤試驗)。"
+          }
+        ],
+        tasks: [
+          { id: "t3_1", text: "熟記課綱列出的 ISO 10993 關鍵編號對應：10993-5 (細胞毒性)、10993-10 (致敏與刺激)、10993-4 (溶血/血液交互作用)、10993-3 (基因毒性)、10993-11 (全身毒性)。" },
+          { id: "t3_2", text: "分析為何 ISO 10993-3 基因毒性需要同時評估細菌突變 (Ames Test) 與哺乳動物細胞染色體變異 (CHO / Mouse Lymphoma)。" },
+          { id: "t3_3", text: "針對總整案例「非侵入式連續監控血糖機（長時間貼附皮膚表面）」，確認其外殼與親膚膠貼片必做哪些 ISO 10993 項目。" }
+        ],
+        npcTips: [
+          "別以為『非侵入式』醫材就不用做生物相容性喔！你的非侵入式血糖機貼片要在皮膚上連續貼 14 天，汗水與皮脂可能會把高分子材料或黏膠裡的化學物質『萃取（Extract）』出來！",
+          "ISO 10993-5 細胞毒性試驗是幾乎所有接觸人體醫材的第一道守門員；而如果器材會接觸血液，那麼 ISO 10993-4 / ASTM F756 的溶血試驗（Hemolysis Test）與家兔熱原試驗就非常關鍵！",
+          "至於長期接觸或植入物，我們最怕材料引發癌症或基因突變，所以 ISO 10993-3 結合了 Ames Test、CHO 染色體變異與 Mouse Lymphoma 三大測試來全面把關！"
+        ],
+        quizzes: [
+          {
+            q: "1. 根據課綱對 ISO 10993 生物相容性之介紹，下列「標準編號」與「試驗名稱」的配對何者完全正確？",
+            options: [
+              "ISO 10993-5：細胞毒性試驗 (Cytotoxicity Test) ／ ISO 10993-10：皮膚致敏性試驗 (Skin Sensitization Test)",
+              "ISO 10993-5：軟體壓力測試 ／ ISO 10993-10：藍牙連線測試",
+              "ISO 10993-4：財報稽核 ／ ISO 10993-3：防水防塵測試",
+              "ISO 10993-11：電池續航力測試"
+            ],
+            ans: 0,
+            exp: "課綱明列：1. Cytotoxicity Test ISO 10993-5；2. Skin Sensitization Test (Maximization Method) ISO 10993-10；3. Systemic Toxicity ISO 10993-11；5. Hemolysis Test ISO 10993-4。"
+          },
+          {
+            q: "2. 課綱中針對「ISO 10993-3 基因毒性（Genotoxicity）」所列出的三項經典評估試驗為何？",
+            options: [
+              "拉曼光譜、紅外線光譜、X光繞射",
+              "Ames Test、Chromosomal Aberration Test (CHO)、Mouse Lymphoma",
+              "落下測試、震動測試、高溫老化測試",
+              "心電圖測試、血壓測試、血氧測試"
+            ],
+            ans: 1,
+            exp: "課綱第 3 頁明確列出 ISO 10993-3 基因毒性三大試驗：6. Genotoxicity, Ames Test；7. Genotoxicity, Chromosomal Aberration Test (CHO)；8. Genotoxicity, Mouse Lymphoma。"
+          }
+        ]
+      },
+      {
+        id: 4,
+        code: "STAGE 4",
+        title: "勇闖美國市場：FDA Class II & III 認證與滅菌確效",
+        subtitle: "週次主題：美國 FDA 認證 Class II & III、醫療器材之滅菌確效、Gamma-Ray 與 EO 滅菌殘留",
+        instructors: "李憲坤 老師、郭建榮 老師",
+        icrt: ["C"],
+        badgeName: "FDA 通關與無菌大師",
+        badgeIcon: "🦅",
+        badgeColor: "#0EA5E9",
+        npcStyle: { hat: "#0EA5E9", shirt: "#0369A1", glasses: true },
+        knowledge: [
+          {
+            tag: "美國 FDA 認證機制",
+            text: "涵蓋 FDA Overview、Device Classifications (產品分類)、Submission Types (510(k) 上市前通知 vs. PMA 上市前核准)、Approval/Clearance Requirements、Investigational Devices (IDE 臨床試驗醫材豁免)、複合性產品 (Combination Products) 及美國代理人與機構註冊 (US Agent / Establishment Registration)。"
+          },
+          {
+            tag: "醫療器材滅菌確效實務",
+            text: "介紹常用滅菌方法（如 Gamma-Ray 伽瑪射線輻射滅菌、Ethylene Oxide [EO] 環氧乙烷氣體滅菌、高壓蒸氣等）、無菌包裝確效與效期測試（Shelf-life），以及滅菌確效實務與日常監控。"
+          },
+          {
+            tag: "滅菌殘留與材料相容性",
+            text: "特別聚焦 Gamma-Ray 與 Ethylene Oxide Sterilization Residuals（滅菌殘留問題）。EO 具毒性須嚴格控管殘留量；Gamma-Ray 則須確認高分子材料與電子元件耐受度，整合材料、製程與產品安全。"
+          }
+        ],
+        tasks: [
+          { id: "t4_1", text: "區分美國 FDA 對 Class II 醫材常用的「510(k) Clearance（證明實質相等性）」與對 Class III 高風險醫材要求的「PMA Approval」有何不同。" },
+          { id: "t4_2", text: "比較 Gamma-Ray 輻射滅菌與 EO（環氧乙烷）氣體滅菌：為什麼 EO 滅菌後必須特別檢測「滅菌殘留量（Sterilization Residuals）」？" },
+          { id: "t4_3", text: "了解為何無菌醫療器材除了滅菌製程確效外，還必須執行「無菌包裝確效與效期測試」。" }
+        ],
+        npcTips: [
+          "想打進全球最大的美國醫材市場？先搞懂你的產品是 Class II 還是 Class III，以及什麼是 IDE（Investigational Device Exemption）與 US Agent 機構註冊！",
+          "滅菌可不是把細菌殺光就沒事了！如果你用 Ethylene Oxide (EO) 環氧乙烷氣體滅菌，卻沒有做好通風解析與殘留檢測，殘留的 EO 毒氣反而會傷害病人！",
+          "另外，如果器材裡面有精密感測晶片或特殊高分子材料，直接照高劑量 Gamma-Ray 可能會讓塑膠脆化或晶片損壞。材料與滅菌製程一定要整合評估！"
+        ],
+        quizzes: [
+          {
+            q: "1. 根據課綱對美國 FDA 醫療器材管理制度的介紹，當外國製造商欲將醫材銷往美國，或在美國進行未上市醫材之臨床研究時，會涉及下列哪些關鍵規範？",
+            options: [
+              "Device Classifications、Submission Types (510(k)/PMA)、Investigational Devices (IDE)、Combination Products 以及 US Agent / Establishment Registration",
+              "只需向美國海關繳交關稅，不須向 FDA 提交任何文件",
+              "只要產品包裝印成英文即可自動獲得 FDA Class III 核准",
+              "FDA 只管食品與化妝品，完全不管醫療器材"
+            ],
+            ans: 0,
+            exp: "課綱明列 FDA 認證重點包含：FDA Overview, Device Classifications, Submission Types, Approval/Clearance Requirements, Investigational Devices, Combination Products, US Agent/Establishment Registration。"
+          },
+          {
+            q: "2. 在醫療器材滅菌確效中，針對「Ethylene Oxide (EO，環氧乙烷)」滅菌法，課綱特別強調必須嚴格管控哪一項安全風險？",
+            options: [
+              "EO 氣體太香會吸引昆蟲",
+              "Ethylene Oxide Sterilization Residuals（EO 滅菌毒性化學物質殘留問題）及無菌包裝效期確效",
+              "EO 滅菌會讓醫療器材變成放射性物質",
+              "EO 滅菌完全不需要日常監控"
+            ],
+            ans: 1,
+            exp: "課綱特別標註「Gamma-Ray and Ethylene Oxide Sterilization Residuals」以及「無菌包裝確效與效期測試、滅菌確效實務與日常監控」。"
+          }
+        ]
+      },
+      {
+        id: 5,
+        code: "STAGE 5",
+        title: "研發品質基石：設計管制、製程確效與 GMP 規範",
+        subtitle: "週次主題：設計管制、製程確效、醫療器材品質管理系統、GMP 優良製造規範、產品查驗登記",
+        instructors: "楊正昌 老師、李子偉 老師",
+        icrt: ["R"],
+        badgeName: "設計管制與 GMP 建築師",
+        badgeIcon: "⚙️",
+        badgeColor: "#F68802",
+        npcStyle: { hat: "#F68802", shirt: "#9A3412", glasses: true },
+        knowledge: [
+          {
+            tag: "設計管制 (Design Control)",
+            text: "核心原則為確認「Design Output Meets Design Input Requirements（設計輸出符合設計輸入要求）」，並落實構型管理（Identification of design / Configuration Management），詳實記錄測試方法（Methods）、日期（Date）與測試執行人員（Individual performing tests）。"
+          },
+          {
+            tag: "製程確效與品質系統法規 (QSR / GMP)",
+            text: "涵蓋品質系統法規之彈性與適用性（Flexibility & Applicability of the QS Regulation）、GMP 豁免條款（GMP Exemptions）及醫療器材優良製造規範要求，確保量產製程穩定一致。"
+          },
+          {
+            tag: "R 學習經驗反思：從實驗室到工廠的落差",
+            text: "對照過往專題或產品開發經驗，檢視設計與製程之完整性；反思產品由實驗室研發進入 GMP 製造與上市查驗登記時，所需補強之品質文件與法規能力。"
+          }
+        ],
+        tasks: [
+          { id: "t5_1", text: "檢視課綱強調的「Design Output Meets Design Input Requirements」：為「非侵入式血糖機」寫出 1 組對應的『設計輸入規格』與『設計輸出驗證方法』。" },
+          { id: "t5_2", text: "反思自己過去做實驗或專題時，是否有記錄「構型版本 (Configuration mgmt)、測試方法、日期與執行人員」？理解為何這在查驗登記中不可或缺。" },
+          { id: "t5_3", text: "理解為何產品要在台灣或美國合法上市，除了產品本身測試合格外，製造廠還必須符合「GMP 醫療器材優良製造規範 / QSR」。" }
+        ],
+        npcTips: [
+          "請把課綱這句英文刻在腦海裡：『Design Output Meets Design Input Requirements』！如果設計輸入要求電池續航 14 天，你的設計輸出與測試報告就必須明確證明它撐得過 14 天！",
+          "來做個深度的 R (Reflection 反思)：大家在大學做專題時，是不是常常改了程式碼或電路板卻沒寫版本紀錄？在醫材法規裡，缺乏 Configuration Management（構型管理）是拿不到上市許可的！",
+          "產品查驗登記與 GMP 品質文件是連體嬰。懂得在研發階段就把測試方法（Methods）、日期（Date）與測試人員簽名留存好，能幫公司省下數百萬的重測費用！"
+        ],
+        quizzes: [
+          {
+            q: "1. 在醫療器材「設計管制（Design Control）」中，課綱強調必須確認「Design Output Meets Design Input Requirements」，並妥善管理設計識別與測試紀錄。下列何者屬於課綱明列必須記載的關鍵資訊？",
+            options: [
+              "Identification of design (configuration mgmt)、Methods（測試方法）、Date（日期）、Individual performing tests（執行測試人員）",
+              "研發工程師當天的星座運勢與午餐菜單",
+              "競爭對手公司的股票代號",
+              "只需口頭跟老闆說測試過了，不需留下任何書面或電子紀錄"
+            ],
+            ans: 0,
+            exp: "課綱第 3 頁於「1.設計管制 2.製程確效」明確列出：Design Output Meets Design Input Requirements, Identification of design (configuration mgmt), Methods, Date, Individual performing tests。"
+          },
+          {
+            q: "2. 學習「醫療器材品質管理系統、GMP 優良製造規範與產品查驗登記」單元時，課綱設定的 R（學習經驗反思）目標為何？",
+            options: [
+              "反思如何逃避衛生主管機關的工廠查核",
+              "說明產品查驗登記與品質文件之關聯，並反思產品由『研發』進入『製造與上市』所需補強之品質與法規能力",
+              "反思如何用最便宜但未經認證的工業廢料製造醫材",
+              "本單元不需要任何反思"
+            ],
+            ans: 1,
+            exp: "課綱備註指出：李子偉老師說明產品查驗登記與品質文件之關聯，引導學生反思產品由研發進入製造與上市所需補強之品質與法規能力。"
+          }
+        ]
+      },
+      {
+        id: 6,
+        code: "STAGE 6",
+        title: "智慧醫療前線：人工智慧法規與醫療器材軟體確效",
+        subtitle: "週次主題：人工智慧法規（美、歐、台智慧醫材法規調和）、醫療器材軟體確效",
+        instructors: "胡慧心 老師、陳維聆 老師、廖盛惠 老師",
+        icrt: ["I", "T"],
+        badgeName: "智慧醫材與軟體確效極客",
+        badgeIcon: "🤖",
+        badgeColor: "#A855F7",
+        npcStyle: { hat: "#A855F7", shirt: "#581C87", glasses: true },
+        knowledge: [
+          {
+            tag: "I 專業知識整合：人工智慧醫療器材法規",
+            text: "四大核心面向：① 人工智慧於醫療器材應用之法規考量；② 人工智慧醫材之美國 FDA 法規管理方向；③ 歐盟 AI 應用法規之國際標準方向；④ 台灣智慧醫材法規接軌國際之法規調和。重點在於整合「AI 演算法、醫療資料與產品驗證」之關聯。"
+          },
+          {
+            tag: "T 知識過渡銜接：醫療器材軟體確效",
+            text: "介紹醫療器材軟體確效（Software Validation）之基本流程，涵蓋軟體開發生命週期、需求規格、風險分析、各階段測試與確效之實務要求，銜接醫療軟體與智慧醫療產品開發之產業實務應用。"
+          }
+        ],
+        tasks: [
+          { id: "t6_1", text: "了解「AI 演算法、醫療資料品質與產品驗證」三者的關聯：若訓練資料缺乏特定族群代表性，會對智慧醫材上市審查造成什麼影響？" },
+          { id: "t6_2", text: "整理美國、歐盟與台灣在「智慧醫材（AI/ML SaMD）法規調和」上的共同關注焦點（如透明度、資料偏誤管控、生命週期變更管理）。" },
+          { id: "t6_3", text: "將你在「醫學工程程式設計」學過的寫程式經驗，對照「醫療器材軟體確效」基本流程，思考如何證明你的血糖推算 App 安全無誤。" }
+        ],
+        npcTips: [
+          "當你把在『醫學工程程式設計』寫的 AI 演算法放進醫療器材裡，它就不再只是課堂作業，而是受美、歐、台智慧醫材法規管轄的『醫療器材軟體』！",
+          "審查 AI 醫療器材時，法規專家最看重『醫療資料』與『演算法驗證』的關聯：你的訓練資料跟測試資料有沒有獨立分開？資料品質夠乾淨、夠具臨床代表性嗎？",
+          "這關同時帶有 T (Transition 知識過渡銜接) 任務：搞懂『醫療器材軟體確效』流程，能讓你直接無縫接軌目前最熱門的智慧醫療（Digital Health / AI SaMD）研發職涯！"
+        ],
+        quizzes: [
+          {
+            q: "1. 根據課綱「人工智慧法規」單元，在開發人工智慧醫療器材時，除了了解美、歐、台之智慧醫材法規方向與國際法規調和外，最核心需要整合哪三者之間的關聯？",
+            options: [
+              "AI 演算法、醫療資料與產品驗證之間的關聯",
+              "顯示卡廠牌、機殼RGB燈效與電競滑鼠的關聯",
+              "網紅代言費、社群按讚數與包裝盒設計的關聯",
+              "完全不需要考慮醫療資料的品質，只要程式碼行數夠多即可"
+            ],
+            ans: 0,
+            exp: "課綱第 3 頁明列：介紹人工智慧醫療器材之法規與管理概念，說明「AI 演算法、醫療資料與產品驗證之間關聯」，整合人工智慧技術與醫療器材法規要求。"
+          },
+          {
+            q: "2. 課綱將「醫療器材軟體確效」列為 T（知識過渡銜接）指標，其主要學習目標為何？",
+            options: [
+              "教導學生如何破解付費遊戲軟體",
+              "介紹醫療器材軟體確效之基本流程，說明軟體開發、測試與確效之實務要求，以銜接醫療軟體與智慧醫療產品開發之實務應用",
+              "證明醫療器材不需要任何測試就能上市",
+              "只針對傳統機械式輪椅進行測試"
+            ],
+            ans: 1,
+            exp: "課綱備註指出：廖盛惠老師說明軟體開發、測試與確效之實務要求，銜接醫療軟體與智慧醫療產品開發之實務應用。"
+          }
+        ]
+      },
+      {
+        id: 7,
+        code: "STAGE 7",
+        title: "上市後安全防線：上市後監控、不良事件通報與風險管制",
+        subtitle: "週次主題：醫療器材上市後監控、ISO/TS 19218-1&2 譯碼分析、風險管制與製程確效、PBL-I",
+        instructors: "陳珏頻 老師、楊正昌 老師",
+        icrt: ["T", "I"],
+        badgeName: "風險管理與上市後守門員",
+        badgeIcon: "🛡️",
+        badgeColor: "#EC4899",
+        npcStyle: { hat: "#EC4899", shirt: "#831843", glasses: false },
+        knowledge: [
+          {
+            tag: "T 知識過渡銜接：醫療器材上市後監控 (PMS)",
+            text: "涵蓋三大實務：① 醫療器材不良品與不良事件通報；② ISO/TS 19218-1 & 2 醫療器材不良事件問題與原因「譯碼分析（Coding）」；③ 全國藥物不良反應通報中心收件處理流程，銜接產業上市後管理工作。"
+          },
+          {
+            tag: "風險管制與製程確效整合 (PBL-I)",
+            text: "說明醫療器材風險管制（Risk Management, ISO 14971）與設計管制、製程確效之緊密關係。透過問題導向學習（PBL-I），將課堂所學之法規、設計、製程與風險管理知識應用於實際醫療器材問題分析。"
+          }
+        ],
+        tasks: [
+          { id: "t7_1", text: "了解台灣「全國藥物不良反應通報中心」如何處理醫療器材不良品與不良事件通報，以及廠商在上市後監控（PMS）的義務。" },
+          { id: "t7_2", text: "認識「ISO/TS 19218-1 & 2 譯碼分析」的作用：為何要用統一的代碼來歸類不良事件的『問題現象』與『評估原因』？" },
+          { id: "t7_3", text: "針對「非侵入式血糖機」進行 PBL 問題分析：若上市後收到用戶通報「流汗時讀值嚴重失準」，應如何從設計管制、製程確效與風險管制三方面排查？" }
+        ],
+        npcTips: [
+          "拿到上市許可證只是中場休息，真正的考驗是『上市後監控（Post-market Surveillance）』！一旦臨床上發生不良事件，必須依法向全國藥物不良反應通報中心通報。",
+          "為什麼課綱特別提到『ISO/TS 19218-1 & 2 譯碼分析』？因為把全球發生的醫材故障現象與根本原因轉成標準化代碼，才能快速統計並揪出系統性風險！",
+          "在 PBL 問題導向學習中，我們把風險管制、設計管制與製程確效串起來：任何一個上市後不良品，都能回推檢視當初的設計輸入與工廠製程確效哪裡出了漏洞！"
+        ],
+        quizzes: [
+          {
+            q: "1. 根據課綱「醫療器材上市後監控」單元，下列哪一項標準專門用於醫療器材不良事件之問題與原因「譯碼分析（Coding）」，並搭配全國藥物不良反應通報中心進行收件處理？",
+            options: [
+              "ISO/TS 19218-1 & 2",
+              "MP3 & MP4",
+              "HTML5 & CSS3",
+              "HTTP & HTTPS"
+            ],
+            ans: 0,
+            exp: "課綱第 4 頁明確列出醫療器材上市後監控三大重點：1. 醫療器材不良品與不良事件通報；2. ISO/TS 19218-1&2 譯碼分析；3. 全國藥物不良反應通報中心收件處理。"
+          },
+          {
+            q: "2. 在「PBL 問題導向學習-I：風險管制與製程確效」中，課綱希望學生達成何種整合應用能力？",
+            options: [
+              "將風險管制、設計管制與製程確效視為完全不相干的三件事",
+              "說明醫療器材風險管制與製程確效之關係，透過 PBL 整合法規、設計、製程與風險管理知識，並應用於實際醫療器材問題分析",
+              "發生不良事件時一律推卸給醫院護理師操作不當",
+              "只需背誦課本目錄即可"
+            ],
+            ans: 1,
+            exp: "課綱指出：透過 PBL 整合法規、設計、製程與風險管理知識，將課堂所學應用於實際醫療器材問題分析。"
+          }
+        ]
+      },
+      {
+        id: 8,
+        code: "STAGE 8",
+        title: "終極總整 Boss 戰：PBL 實戰與「非侵入式血糖機」全案規劃",
+        subtitle: "週次主題：PBL 問題導向學習-II（分組醫療器材主題討論）與 4 週自主學習總整驗收",
+        instructors: "劉健群 老師、楊正昌 老師（總整授課團隊）",
+        icrt: ["I", "C", "R", "T"],
+        badgeName: "傳奇醫材總整法規宗師",
+        badgeIcon: "👑",
+        badgeColor: "#FFD700",
+        npcStyle: { hat: "#FFD700", shirt: "#B45309", glasses: true },
+        knowledge: [
+          {
+            tag: "I + C + R + T 總整課程終極匯流",
+            text: "本階段結合「PBL 問題導向學習-II」與「4 週自主學習」，以實際醫療器材（如課綱重點推動案例：非侵入式連續監控血糖機 Non-invasive continuous glucose monitor）作為總整案例，完成從產品設計、風險評估、生物相容性、軟硬體確效至查驗登記上市的完整規劃。"
+          },
+          {
+            tag: "總整能力驗收五大評量維度",
+            text: "期末整體能力驗收評量包含：① 專業知識與法規正確性；② 跨領域整合（I）；③ 問題分析與反思（R）；④ 實務應用與職涯銜接（T）；⑤ 成果發表與溝通能力。"
+          }
+        ],
+        tasks: [
+          { id: "t8_1", text: "前往本系統【🏆 徽章櫃 & CGM 總整沙盒】分頁，完成「非侵入式連續監控血糖機」四大法規維度的配置並取得 100% 合規評分！" },
+          { id: "t8_2", text: "結合小組討論或個人專題選定之醫療器材主題，檢視整學期醫材法規、品質（ISO 13485/GMP）、風險（ISO 14971）與安全驗證（ISO 10993/軟體確效）之完整架構。" },
+          { id: "t8_3", text: "前往【📓 自主學習筆記 & 匯出】分頁撰寫期末 ICRT 總整反思，並匯出你的專屬學習歷程報告檔案。" }
+        ],
+        npcTips: [
+          "恭喜你一路闖關來到最後的終極 Boss 戰！回頭看看，你已經把生醫材料、生理量測、醫工程式設計跟國際醫材法規全部串聯起來了！",
+          "課綱特別點名的總整案例『非侵入式連續監控血糖機 (Non-invasive CGM)』，涵蓋了皮膚貼片生物相容性 (ISO 10993)、精密感測設計管制、AI 軟體確效與台美歐查驗登記，記得到『CGM 總整沙盒』親自配置一次！",
+          "打敗最終 Boss 後，別忘了到『自主學習筆記』匯出你的完整學習證明。祝你在未來的醫材研發與法規職涯大放異彩！"
+        ],
+        quizzes: [
+          {
+            q: "1. 本課程作為醫學工程學系重點推動之「總整課程（Capstone Course）」，以「非侵入式連續監控血糖機 (Non-invasive CGM)」等實際醫材為總整案例，其推動的 I-C-R-T 四大指標完整意涵為何？",
+            options: [
+              "I：專業知識整合 (Integration)、C：學習經驗收尾 (Conclusion)、R：學習經驗反思 (Reflection)、T：知識過渡銜接 (Transition)",
+              "I：個人作業、C：抄寫法條、R：死背考古題、T：期末考測驗",
+              "I：工業製造、C：商業行銷、R：零售批發、T：物流運輸",
+              "以上皆非"
+            ],
+            ans: 0,
+            exp: "課綱第 1、2、4 頁明確定義總整課程指標：專業知識整合 I (Integration)、學習經驗收尾 C (Conclusion)、學習經驗反思 R (Reflection)、知識過渡銜接 T (Transition)。"
+          },
+          {
+            q: "2. 當你們團隊針對「非侵入式連續監控血糖機」進行期末總整規劃與成果發表時，下列哪一項規劃最符合課綱對「專業整合與實務應用能力」的驗收要求？",
+            options: [
+              "只展示感測器硬體外觀，完全忽略生物相容性、軟體確效與查驗登記要求",
+              "全面整合：產品分類分級與美/歐/台法規路徑、皮膚接觸之 ISO 10993 生物相容性評估、設計管制與 GMP 製程確效、AI 演算法與醫療軟體確效、臨床評估 (CER) 以及上市後不良事件監控與風險管理",
+              "宣稱產品可以治療所有癌症，且不需要做任何臨床試驗與風險管理",
+              "直接複製網路上一般運動計步器的說明書當作技術文件"
+            ],
+            ans: 1,
+            exp: "期末總整驗收要求學生整合整學期醫材法規、品質、生物相容性、軟硬體與 AI 確效、風險及上市管理知識，形成從研發設計至上市管理之完整概念。"
+          }
+        ]
+      }
+    ];
+
+    /********************************************************************
+     * 2. STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
+     ********************************************************************/
+    const STORAGE_KEY = "PRG1100_ROBLOX_QUEST_STATE_V1";
+
+    let appState = {
+      playerName: "BME_Builder_01",
+      xp: 0,
+      bux: 0,
+      completedTasks: {},      // { "t1_1": true, ... }
+      clearedStages: {},       // { 1: true, ... } (Boss defeated)
+      unlockedBadges: {},      // { 1: "2026/10/31", ... }
+      stageNotes: {},          // { 1: "note text", ... }
+      overallReflection: "",
+      cgmConfig: {
+        class: "",
+        bio: "",
+        gmp: "",
+        ai: "",
+        perfectRewarded: false
+      },
+      unlockAllMode: false,
+      sfxEnabled: true,
+      currentTab: "map",
+      currentStageId: 1,
+      icrtFilter: "ALL",
+      npcTipIdx: 0
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState = {
+            ...appState,
+            ...parsed,
+            cgmConfig: { ...appState.cgmConfig, ...(parsed.cgmConfig || {}) }
+          };
+        }
+      } catch (e) {
+        console.warn("Failed to load state from localStorage:", e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.warn("Failed to save state to localStorage:", e);
+      }
+      updateHUD();
+    }
+
+    /********************************************************************
+     * 3. WEB AUDIO API SYNTHESIZER (ROBLOX / GAMING SOUND EFFECTS)
+     ********************************************************************/
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!appState.sfxEnabled) return;
+      const ctx = getAudioCtx();
+      if (!ctx) return;
+
+      const now = ctx.currentTime;
+
+      if (type === "click") {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(520, now);
+        osc.frequency.exponentialRampToValueAtTime(180, now + 0.06);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.06);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.06);
+      } else if (type === "task") {
+        // Coin / XP chime
+        const notes = [587.33, 880]; // D5, A5
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now + i * 0.08);
+          gain.gain.setValueAtTime(0.15, now + i * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.008, now + i * 0.08 + 0.18);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.08);
+          osc.stop(now + i * 0.08 + 0.18);
+        });
+      } else if (type === "win") {
+        // Victory Fanfare Arpeggio
+        const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "square";
+          osc.frequency.setValueAtTime(freq, now + i * 0.09);
+          gain.gain.setValueAtTime(0.12, now + i * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.008, now + i * 0.09 + 0.28);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.09);
+          osc.stop(now + i * 0.09 + 0.28);
+        });
+      } else if (type === "error") {
+        // Roblox Oof / Buzzer feel
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(190, now);
+        osc.frequency.linearRampToValueAtTime(115, now + 0.25);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+    }
+
+    /********************************************************************
+     * 4. HUD, LEVEL SYSTEM & TOAST NOTIFICATIONS
+     ********************************************************************/
+    function getLevelInfo(xp) {
+      const xpPerLevel = 250;
+      const level = Math.floor(xp / xpPerLevel) + 1;
+      const currentLevelXp = xp % xpPerLevel;
+      const percent = Math.min(100, Math.round((currentLevelXp / xpPerLevel) * 100));
+
+      let title = "實習醫工研發員";
+      if (level === 2) title = "初階法規工程師";
+      else if (level === 3) title = "生物相容性專家";
+      else if (level === 4) title = "FDA 查驗登記主任";
+      else if (level === 5) title = "GMP 品質保證經理";
+      else if (level === 6) title = "智慧醫材確效架構師";
+      else if (level >= 7) title = "傳奇醫材總整宗師";
+
+      return { level, title, currentLevelXp, xpPerLevel, percent };
+    }
+
+    function updateHUD() {
+      document.getElementById("hud-player-name").textContent = appState.playerName;
+      const lvl = getLevelInfo(appState.xp);
+      document.getElementById("hud-level-badge").textContent = `Lv.${lvl.level} ${lvl.title}`;
+      document.getElementById("hud-xp-bar").style.width = `${lvl.percent}%`;
+      document.getElementById("hud-xp-text").textContent = `${appState.xp} XP (本級 ${lvl.currentLevelXp}/${lvl.xpPerLevel})`;
+      document.getElementById("hud-bux").textContent = appState.bux;
+
+      const badgeCount = Object.keys(appState.unlockedBadges).length;
+      document.getElementById("hud-badges").textContent = `${badgeCount}/8`;
+
+      // Unlock Mode Button UI
+      const unlockBtn = document.getElementById("btn-unlock-mode");
+      const unlockIcon = document.getElementById("unlock-mode-icon");
+      const unlockText = document.getElementById("unlock-mode-text");
+      if (appState.unlockAllMode) {
+        unlockBtn.className = "rbx-btn rbx-btn-orange px-2.5 py-1.5 text-xs";
+        unlockIcon.textContent = "🔓";
+        unlockText.textContent = "自由瀏覽";
+      } else {
+        unlockBtn.className = "rbx-btn rbx-btn-dark px-2.5 py-1.5 text-xs";
+        unlockIcon.textContent = "🔒";
+        unlockText.textContent = "闖關模式";
+      }
+
+      // SFX Button UI
+      document.getElementById("sfx-icon").textContent = appState.sfxEnabled ? "🔊" : "🔇";
+
+      // Update Overall Map Stats
+      const totalTasksDone = Object.keys(appState.completedTasks).length;
+      const totalBossDone = Object.keys(appState.clearedStages).length;
+      const totalNotesDone = Object.values(appState.stageNotes).filter(n => n && n.trim().length > 0).length;
+
+      document.getElementById("stat-tasks-done").textContent = `${totalTasksDone}/24`;
+      document.getElementById("stat-boss-done").textContent = `${totalBossDone}/8`;
+      document.getElementById("stat-notes-done").textContent = `${totalNotesDone}/8`;
+
+      const overallPercent = Math.min(100, Math.round(((totalTasksDone + totalBossDone * 3) / 48) * 100));
+      document.getElementById("map-overall-percent").textContent = `${overallPercent}%`;
+    }
+
+    function showToast(title, message, color = "#02B757") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = "rbx-card p-3.5 pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0 flex items-start gap-3";
+      toast.style.borderLeft = `6px solid ${color}`;
+      toast.innerHTML = `
+        <div class="text-xl shrink-0">✨</div>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs font-black text-white uppercase tracking-wide">${title}</div>
+          <div class="text-xs text-gray-300 mt-0.5 leading-snug">${message}</div>
+        </div>
+      `;
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove("translate-y-2", "opacity-0");
+      });
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => toast.remove(), 300);
+      }, 3600);
+    }
+
+    /********************************************************************
+     * 5. CONFETTI EFFECT FOR BOSS CLEAR & BADGE UNLOCK
+     ********************************************************************/
+    function fireConfetti() {
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = [];
+      const colors = ["#00A2FF", "#02B757", "#FFD700", "#F68802", "#EF4444", "#A855F7"];
+      for (let i = 0; i < 85; i++) {
+        pieces.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 220,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 16,
+          vy: -Math.random() * 16 - 5,
+          size: Math.random() * 10 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rot: Math.random() * Math.PI * 2,
+          vrot: (Math.random() - 0.5) * 0.2
+        });
+      }
+
+      let frame = 0;
+      function animate() {
+        frame++;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.42; // gravity
+          p.rot += p.vrot;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        });
+        if (frame < 110) requestAnimationFrame(animate);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      animate();
+    }
+
+    /********************************************************************
+     * 6. OBBY MAP RENDERING & NAVIGATION
+     ********************************************************************/
+    function isStageUnlocked(stageId) {
+      if (appState.unlockAllMode) return true;
+      if (stageId === 1) return true;
+      return !!appState.clearedStages[stageId - 1];
+    }
+
+    function getIcrtBadgeHtml(code) {
+      const map = {
+        I: { label: "I 專業整合", bg: "bg-[#00A2FF]/20 text-[#66C7FF] border-[#00A2FF]" },
+        C: { label: "C 經驗收尾", bg: "bg-[#02B757]/20 text-[#2CE080] border-[#02B757]" },
+        R: { label: "R 經驗反思", bg: "bg-[#F68802]/20 text-[#FFA02B] border-[#F68802]" },
+        T: { label: "T 過渡銜接", bg: "bg-[#A855F7]/20 text-[#D8B4FE] border-[#A855F7]" }
+      };
+      const item = map[code] || map.I;
+      return `<span class="text-[11px] font-black px-2 py-0.5 rounded border ${item.bg}">${item.label}</span>`;
+    }
+
+    function setIcrtFilter(filterCode) {
+      playSound("click");
+      appState.icrtFilter = filterCode;
+      ["ALL", "I", "C", "R", "T"].forEach(k => {
+        const btn = document.getElementById(`filter-${k}`);
+        if (btn) {
+          btn.className = (k === filterCode)
+            ? "rbx-btn rbx-btn-blue px-3 py-1 text-xs"
+            : "rbx-btn rbx-btn-dark px-3 py-1 text-xs";
+        }
+      });
+      renderObbyMap();
+    }
+
+    function renderObbyMap() {
+      const grid = document.getElementById("obby-map-grid");
+      grid.innerHTML = "";
+
+      const filtered = STAGES_DATA.filter(st => {
+        if (appState.icrtFilter === "ALL") return true;
+        return st.icrt.includes(appState.icrtFilter);
+      });
+
+      filtered.forEach(stage => {
+        const unlocked = isStageUnlocked(stage.id);
+        const cleared = !!appState.clearedStages[stage.id];
+        const tasksDone = stage.tasks.filter(t => appState.completedTasks[t.id]).length;
+
+        let statusBadge = "";
+        let cardBorderClass = "border-[#393B3D]";
+        let stripColor = "bg-[#393B3D]";
+
+        if (cleared) {
+          statusBadge = `<span class="px-2 py-0.5 rounded bg-[#02B757] text-white text-[11px] font-black">✅ 已通關</span>`;
+          cardBorderClass = "border-[#02B757]";
+          stripColor = "bg-[#02B757]";
+        } else if (unlocked) {
+          statusBadge = `<span class="px-2 py-0.5 rounded bg-[#F68802] text-white text-[11px] font-black animate-pulse">🔥 挑戰中</span>`;
+          cardBorderClass = "border-[#00A2FF] obby-active-glow";
+          stripColor = "bg-[#00A2FF]";
+        } else {
+          statusBadge = `<span class="px-2 py-0.5 rounded bg-[#2B2D31] text-gray-400 text-[11px] font-bold">🔒 鎖定中</span>`;
+        }
+
+        const icrtTagsHtml = stage.icrt.map(c => getIcrtBadgeHtml(c)).join("");
+
+        const card = document.createElement("div");
+        card.className = `rbx-card p-4 flex flex-col justify-between transition-transform duration-150 ${unlocked ? "hover:-translate-y-1 cursor-pointer" : "opacity-75"} ${cardBorderClass}`;
+        card.onclick = () => {
+          if (unlocked) {
+            openStage(stage.id);
+          } else {
+            playSound("error");
+            showToast("關卡尚未解鎖 🔒", `請先擊敗 Stage ${stage.id - 1} 的守關 Boss，或點擊右上角開啟「🔓 自由瀏覽模式」！`, "#F68802");
+          }
+        };
+
+        card.innerHTML = `
+          <div>
+            <div class="stud-strip -mx-4 -mt-4 mb-3 rounded-t-lg ${stripColor}"></div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="font-rbx font-black text-xs px-2 py-0.5 rounded bg-[#16181A] text-[#FFD700] border border-[#393B3D]">
+                ${stage.code}
+              </span>
+              ${statusBadge}
+            </div>
+
+            <h3 class="text-base font-black text-white leading-snug mb-2">
+              ${stage.title}
+            </h3>
+
+            <div class="flex flex-wrap gap-1 mb-3">
+              ${icrtTagsHtml}
+            </div>
+
+            <p class="text-xs text-gray-400 line-clamp-2 mb-3">
+              👨‍🏫 授課專家：${stage.instructors}
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-[#393B3D] space-y-2.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-400">☑️ 探索任務：<strong class="text-white">${tasksDone}/3</strong></span>
+              <span class="text-gray-400">🏅 徽章：<strong class="${cleared ? 'text-[#FFD700]' : 'text-gray-500'}">${stage.badgeIcon}</strong></span>
+            </div>
+            <button class="rbx-btn ${cleared ? 'rbx-btn-green' : unlocked ? 'rbx-btn-blue' : 'rbx-btn-dark'} w-full py-2 text-xs">
+              ${cleared ? '🎮 複習關卡內容' : unlocked ? '⚔️ 進入關卡挑戰' : '🔒 尚未解鎖'}
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function jumpToActiveStage() {
+      playSound("click");
+      // Find first uncleared stage
+      let target = 1;
+      for (let i = 1; i <= STAGES_DATA.length; i++) {
+        if (!appState.clearedStages[i]) {
+          target = i;
+          break;
+        }
+      }
+      openStage(target);
+    }
+
+    /********************************************************************
+     * 7. STAGE QUEST PANEL (KNOWLEDGE, TASKS, NPC, BOSS QUIZ)
+     ********************************************************************/
+    function openStage(stageId) {
+      playSound("click");
+      appState.currentStageId = stageId;
+      appState.npcTipIdx = 0;
+      saveState();
+      renderStageView();
+      switchTab("stage");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function navigateStage(delta) {
+      const nextId = appState.currentStageId + delta;
+      if (nextId < 1 || nextId > STAGES_DATA.length) return;
+      if (!isStageUnlocked(nextId)) {
+        playSound("error");
+        showToast("下一關尚未解鎖 🔒", "請先完成本關卡的「守關 Boss 挑戰」，或開啟頂部的「🔓 自由瀏覽模式」！", "#F68802");
+        return;
+      }
+      openStage(nextId);
+    }
+
+    function generateNpcSvg(style) {
+      return `
+        <svg viewBox="0 0 64 64" class="w-14 h-14">
+          <rect x="18" y="4" width="28" height="7" rx="2" fill="${style.hat}"/>
+          <rect x="14" y="9" width="36" height="4" rx="1" fill="${style.hat}"/>
+          <rect x="16" y="12" width="32" height="22" rx="4" fill="#F5CD2F" stroke="#111" stroke-width="2"/>
+          ${style.glasses ? `
+            <rect x="19" y="17" width="11" height="7" rx="1.5" fill="#111" stroke="#FFF" stroke-width="1"/>
+            <rect x="34" y="17" width="11" height="7" rx="1.5" fill="#111" stroke="#FFF" stroke-width="1"/>
+            <line x1="30" y1="20" x2="34" y2="20" stroke="#111" stroke-width="2"/>
+          ` : `
+            <circle cx="24" cy="20" r="2.5" fill="#111"/>
+            <circle cx="40" cy="20" r="2.5" fill="#111"/>
+          `}
+          <path d="M 25 28 Q 32 32 39 28" stroke="#111" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <rect x="12" y="36" width="40" height="24" rx="3" fill="${style.shirt}" stroke="#111" stroke-width="2"/>
+          <polygon points="24,36 32,48 40,36" fill="#F3F4F6"/>
+        </svg>
+      `;
+    }
+
+    function renderStageView() {
+      const stage = STAGES_DATA.find(s => s.id === appState.currentStageId) || STAGES_DATA[0];
+      const cleared = !!appState.clearedStages[stage.id];
+
+      document.getElementById("nav-current-stage-tag").textContent = stage.code;
+      document.getElementById("stage-view-num").textContent = stage.code;
+      document.getElementById("stage-view-title").textContent = stage.title;
+      document.getElementById("stage-view-subtitle").textContent = `${stage.subtitle} ｜ 授課專家：${stage.instructors}`;
+      document.getElementById("stage-view-icrt").innerHTML = stage.icrt.map(c => getIcrtBadgeHtml(c)).join("");
+
+      const statusEl = document.getElementById("stage-view-status");
+      if (cleared) {
+        statusEl.textContent = "✅ 已擊敗守關 Boss";
+        statusEl.className = "text-xs font-black px-2.5 py-0.5 rounded bg-[#02B757] text-white";
+      } else {
+        statusEl.textContent = "🔥 試煉進行中";
+        statusEl.className = "text-xs font-black px-2.5 py-0.5 rounded bg-[#F68802] text-white";
+      }
+
+      // Prev / Next buttons state
+      document.getElementById("btn-prev-stage").disabled = (stage.id === 1);
+      document.getElementById("btn-next-stage").disabled = (stage.id === STAGES_DATA.length);
+
+      // 1. Render Knowledge Base
+      const kbContainer = document.getElementById("stage-knowledge-list");
+      kbContainer.innerHTML = stage.knowledge.map((k, idx) => `
+        <div class="rbx-panel p-3.5 border-l-4 border-l-[#00A2FF]">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-5 h-5 rounded bg-[#00A2FF] text-white font-black text-xs flex items-center justify-center font-rbx">${idx + 1}</span>
+            <h4 class="text-sm font-black text-white">${k.tag}</h4>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-300 leading-relaxed pl-7">${k.text}</p>
+        </div>
+      `).join("");
+
+      // 2. Render Interactive Tasks
+      renderStageTasks(stage);
+
+      // 3. Quick Note Input
+      document.getElementById("stage-quick-note").value = appState.stageNotes[stage.id] || "";
+
+      // 4. Render NPC Mentor
+      document.getElementById("npc-avatar-box").innerHTML = generateNpcSvg(stage.npcStyle);
+      document.getElementById("npc-name").textContent = `${stage.instructors}`;
+      renderNpcTip(stage);
+
+      // 5. Render Boss Quiz
+      document.getElementById("stage-boss-badge-preview").textContent = stage.badgeIcon;
+      renderStageQuiz(stage);
+    }
+
+    function renderStageTasks(stage) {
+      const taskContainer = document.getElementById("stage-task-list");
+      const doneCount = stage.tasks.filter(t => appState.completedTasks[t.id]).length;
+      document.getElementById("stage-task-counter").textContent = `${doneCount} / ${stage.tasks.length} 完成`;
+
+      taskContainer.innerHTML = stage.tasks.map(task => {
+        const checked = !!appState.completedTasks[task.id];
+        return `
+          <div onclick="toggleQuestTask('${task.id}')" class="rbx-panel p-3.5 flex items-start gap-3.5 cursor-pointer transition-all hover:border-[#02B757] ${checked ? 'border-[#02B757] bg-[#02B757]/10' : ''}">
+            <div class="w-6 h-6 rounded-md border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${checked ? 'bg-[#02B757] border-[#2CE080] text-white' : 'bg-[#16181A] border-[#4E5154] text-transparent'}">
+              ✓
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs sm:text-sm font-bold leading-relaxed ${checked ? 'line-through text-gray-400' : 'text-gray-100'}">
+                ${task.text}
+              </p>
+              <div class="flex items-center gap-2 mt-1.5">
+                <span class="text-[11px] font-black px-2 py-0.5 rounded ${checked ? 'bg-[#02B757]/20 text-[#2CE080]' : 'bg-[#16181A] text-[#FFD700]'}">
+                  ${checked ? '✨ 已領取 +25 XP / +10 R$' : '🎁 完成獎勵：+25 XP / +10 R$'}
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function toggleQuestTask(taskId) {
+      const stage = STAGES_DATA.find(s => s.id === appState.currentStageId);
+      if (!appState.completedTasks[taskId]) {
+        appState.completedTasks[taskId] = true;
+        appState.xp += 25;
+        appState.bux += 10;
+        playSound("task");
+        showToast("自主學習任務完成！", "獲得 +25 XP 與 +10 StudyBux！", "#02B757");
+      } else {
+        delete appState.completedTasks[taskId];
+        appState.xp = Math.max(0, appState.xp - 25);
+        appState.bux = Math.max(0, appState.bux - 10);
+        playSound("click");
+      }
+      saveState();
+      renderStageTasks(stage);
+      renderObbyMap();
+    }
+
+    function renderNpcTip(stage) {
+      const idx = appState.npcTipIdx % stage.npcTips.length;
+      document.getElementById("npc-tip-index").textContent = `錦囊 ${idx + 1} / ${stage.npcTips.length}`;
+      document.getElementById("npc-dialogue-text").textContent = `「${stage.npcTips[idx]}」`;
+
+      const dotsContainer = document.getElementById("npc-dots");
+      dotsContainer.innerHTML = stage.npcTips.map((_, i) => `
+        <span class="w-2.5 h-2.5 rounded-full ${i === idx ? 'bg-[#FFD700]' : 'bg-[#393B3D]'}"></span>
+      `).join("");
+    }
+
+    function nextNpcTip() {
+      playSound("click");
+      const stage = STAGES_DATA.find(s => s.id === appState.currentStageId);
+      appState.npcTipIdx = (appState.npcTipIdx + 1) % stage.npcTips.length;
+      renderNpcTip(stage);
+    }
+
+    function renderStageQuiz(stage) {
+      const container = document.getElementById("stage-quiz-container");
+      const resultBox = document.getElementById("stage-quiz-result");
+      resultBox.className = "hidden";
+
+      container.innerHTML = stage.quizzes.map((qz, qIdx) => `
+        <div class="rbx-panel p-4 space-y-2.5">
+          <p class="text-xs sm:text-sm font-black text-white leading-relaxed">${qz.q}</p>
+          <div class="space-y-2 pt-1">
+            ${qz.options.map((opt, oIdx) => `
+              <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-[#16181A] border-2 border-[#393B3D] hover:border-[#00A2FF] cursor-pointer transition-colors text-xs sm:text-sm text-gray-200">
+                <input type="radio" name="stage_q_${qIdx}" value="${oIdx}" class="mt-1 accent-[#00A2FF] shrink-0" />
+                <span>${opt}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div id="quiz_exp_${qIdx}" class="hidden mt-2 p-2.5 rounded bg-[#111214] border border-[#393B3D] text-xs text-gray-300"></div>
+        </div>
+      `).join("");
+    }
+
+    function resetStageQuizUI() {
+      playSound("click");
+      const stage = STAGES_DATA.find(s => s.id === appState.currentStageId);
+      renderStageQuiz(stage);
+    }
+
+    function submitStageQuiz() {
+      const stage = STAGES_DATA.find(s => s.id === appState.currentStageId);
+      let allAnswered = true;
+      let correctCount = 0;
+
+      stage.quizzes.forEach((qz, qIdx) => {
+        const selected = document.querySelector(`input[name="stage_q_${qIdx}"]:checked`);
+        if (!selected) {
+          allAnswered = false;
+        }
+      });
+
+      if (!allAnswered) {
+        playSound("error");
+        showToast("尚有題目未作答 ⚠️", "請先選擇所有 Boss 測驗題的答案再發動攻擊！", "#F68802");
+        return;
+      }
+
+      stage.quizzes.forEach((qz, qIdx) => {
+        const selected = document.querySelector(`input[name="stage_q_${qIdx}"]:checked`);
+        const val = parseInt(selected.value, 10);
+        const expEl = document.getElementById(`quiz_exp_${qIdx}`);
+        expEl.classList.remove("hidden");
+
+        if (val === qz.ans) {
+          correctCount++;
+          expEl.innerHTML = `<strong class="text-[#02B757]">✅ 答對了！</strong> ${qz.exp}`;
+          expEl.className = "mt-2 p-2.5 rounded bg-[#02B757]/15 border border-[#02B757] text-xs text-gray-200";
+        } else {
+          expEl.innerHTML = `<strong class="text-[#EF4444]">❌ 答錯囉！</strong> 正解應為選項 (${["A","B","C","D"][qz.ans]})。解析：${qz.exp}`;
+          expEl.className = "mt-2 p-2.5 rounded bg-[#EF4444]/15 border border-[#EF4444] text-xs text-gray-200";
+        }
+      });
+
+      const resultBox = document.getElementById("stage-quiz-result");
+      resultBox.classList.remove("hidden");
+
+      if (correctCount === stage.quizzes.length) {
+        playSound("win");
+        fireConfetti();
+
+        const firstTime = !appState.clearedStages[stage.id];
+        appState.clearedStages[stage.id] = true;
+
+        if (!appState.unlockedBadges[stage.id]) {
+          const today = new Date().toLocaleDateString("zh-TW");
+          appState.unlockedBadges[stage.id] = today;
+        }
+
+        if (firstTime) {
+          appState.xp += 100;
+          appState.bux += 50;
+          showToast(
+            `🎉 擊敗 Stage ${stage.id} 守關 Boss！`,
+            `解鎖徽章【${stage.badgeIcon} ${stage.badgeName}】，獲得 +100 XP 與 +50 R$！`,
+            "#FFD700"
+          );
+        } else {
+          showToast("複習挑戰滿分通過！", "你已徹底掌握本關卡的醫療器材法規核心概念！", "#02B757");
+        }
+
+        saveState();
+        renderObbyMap();
+        renderBadgesVault();
+
+        const nextStageId = stage.id + 1;
+        const hasNext = nextStageId <= STAGES_DATA.length;
+
+        resultBox.className = "p-4 rounded-xl border-2 border-[#02B757] bg-[#02B757]/20 text-white space-y-2";
+        resultBox.innerHTML = `
+          <div class="font-black text-sm sm:text-base text-[#2CE080]">
+            🏆 恭喜完美過關！獲得專屬徽章：【${stage.badgeIcon} ${stage.badgeName}】
+          </div>
+          <p class="text-xs text-gray-200">
+            你已成功整合本關卡知識！${hasNext ? `下一關 <strong>Stage ${nextStageId}</strong> 已經為你開啟！` : `你已通過全部 8 大關卡，快去【🏆 CGM 總整沙盒】與【📓 學習筆記】完成最後總整吧！`}
+          </p>
+          ${hasNext ? `
+            <button onclick="openStage(${nextStageId})" class="rbx-btn rbx-btn-blue px-4 py-2 text-xs mt-2">
+              🚀 立即前往 Stage ${nextStageId}
+            </button>
+          ` : `
+            <button onclick="switchTab('badges')" class="rbx-btn rbx-btn-orange px-4 py-2 text-xs mt-2">
+              📟 前往「非侵入式血糖機」總整沙盒
+            </button>
+          `}
+        `;
+      } else {
+        playSound("error");
+        resultBox.className = "p-4 rounded-xl border-2 border-[#EF4444] bg-[#EF4444]/20 text-white";
+        resultBox.innerHTML = `
+          <div class="font-black text-sm text-[#FCA5A5]">
+            💥 挑戰未通過（答對 ${correctCount} / ${stage.quizzes.length} 題）
+          </div>
+          <p class="text-xs text-gray-200 mt-1">
+            請閱讀上方各題的法規解析與左方「📚 觀念補給站」，修正選項後再次點擊「⚡ 發動攻擊」！
+          </p>
+        `;
+      }
+    }
+
+    function saveStageNote() {
+      const val = document.getElementById("stage-quick-note").value;
+      appState.stageNotes[appState.currentStageId] = val;
+      saveState();
+      const ind = document.getElementById("stage-note-saved-indicator");
+      ind.classList.remove("opacity-0");
+      clearTimeout(window._noteSaveTimer);
+      window._noteSaveTimer = setTimeout(() => ind.classList.add("opacity-0"), 1500);
+    }
+
+    /********************************************************************
+     * 8. BADGES VAULT & NON-INVASIVE CGM CAPSTONE SANDBOX
+     ********************************************************************/
+    function renderBadgesVault() {
+      const grid = document.getElementById("badges-grid");
+      const unlockedCount = Object.keys(appState.unlockedBadges).length;
+      document.getElementById("vault-badge-count").textContent = `已收集 ${unlockedCount} / 8 枚徽章`;
+
+      grid.innerHTML = STAGES_DATA.map(stage => {
+        const unlockedDate = appState.unlockedBadges[stage.id];
+        const isUnlocked = !!unlockedDate;
+
+        return `
+          <div onclick="openStage(${stage.id})" class="rbx-panel p-4 flex flex-col justify-between cursor-pointer transition-transform hover:-translate-y-1 ${isUnlocked ? 'border-[#FFD700] bg-gradient-to-b from-[#2B2D31] to-[#1F2421]' : 'opacity-60'}">
+            <div class="flex items-center gap-3.5">
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center text-3xl border-2 shrink-0 ${isUnlocked ? 'bg-[#16181A] border-[#FFD700] shadow-lg' : 'bg-[#16181A] border-[#393B3D] grayscale'}">
+                ${stage.badgeIcon}
+              </div>
+              <div class="min-w-0">
+                <span class="text-[10px] font-black px-2 py-0.5 rounded bg-[#16181A] text-gray-400 font-rbx">${stage.code}</span>
+                <h4 class="text-sm font-black text-white mt-1 truncate">${stage.badgeName}</h4>
+                <p class="text-[11px] ${isUnlocked ? 'text-[#2CE080] font-bold' : 'text-gray-500'}">
+                  ${isUnlocked ? `✓ 解鎖於 ${unlockedDate}` : '🔒 擊敗該關 Boss 解鎖'}
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Sync CGM Sandbox Dropdowns
+      document.getElementById("cgm-opt-class").value = appState.cgmConfig.class || "";
+      document.getElementById("cgm-opt-bio").value = appState.cgmConfig.bio || "";
+      document.getElementById("cgm-opt-gmp").value = appState.cgmConfig.gmp || "";
+      document.getElementById("cgm-opt-ai").value = appState.cgmConfig.ai || "";
+      updateCgmScoreHeader();
+    }
+
+    function saveCgmConfig() {
+      appState.cgmConfig.class = document.getElementById("cgm-opt-class").value;
+      appState.cgmConfig.bio = document.getElementById("cgm-opt-bio").value;
+      appState.cgmConfig.gmp = document.getElementById("cgm-opt-gmp").value;
+      appState.cgmConfig.ai = document.getElementById("cgm-opt-ai").value;
+      saveState();
+      updateCgmScoreHeader();
+    }
+
+    function updateCgmScoreHeader() {
+      const cfg = appState.cgmConfig;
+      const fields = [cfg.class, cfg.bio, cfg.gmp, cfg.ai];
+      if (fields.every(f => !f)) {
+        document.getElementById("cgm-score-display").textContent = "尚未配置";
+        return;
+      }
+      const correctCount = fields.filter(f => f === "correct").length;
+      const score = correctCount * 25;
+      const el = document.getElementById("cgm-score-display");
+      el.textContent = `${score} / 100 分`;
+      el.className = score === 100
+        ? "text-2xl font-black text-[#02B757] font-rbx"
+        : "text-2xl font-black text-[#FFD700] font-rbx";
+    }
+
+    function evaluateCgmSandbox() {
+      saveCgmConfig();
+      const cfg = appState.cgmConfig;
+      const diagBox = document.getElementById("cgm-diagnostic-box");
+      diagBox.classList.remove("hidden");
+
+      const checks = [
+        {
+          title: "【I 專業整合】分類分級與美/台上市途徑",
+          ok: cfg.class === "correct",
+          msgOk: "✅ 正確！非侵入式 연속血糖機雖無針頭刺入血管，但其預期用途為監測臨床生理數值，屬中高度風險醫療器材，須規劃 TFDA 查驗登記、美國 FDA 認證與臨床評估報告 (CER)。",
+          msgErr: "❌ 錯誤：只要宣稱醫療監測用途即屬「醫療器材」，不可當作一般運動手環或第一等級紗布免審上架。"
+        },
+        {
+          title: "【C 經驗收尾】ISO 10993 生物相容性評估",
+          ok: cfg.bio === "correct",
+          msgOk: "✅ 正確！連續貼附皮膚 14 天需考慮汗液萃取效應，必測 ISO 10993-5 (細胞毒性) 與 ISO 10993-10 (皮膚致敏與刺激試驗)。",
+          msgErr: "❌ 錯誤：長時間接觸完整皮膚之醫材仍必須通過 ISO 10993-5 細胞毒性與 ISO 10993-10 致敏/刺激測試。"
+        },
+        {
+          title: "【R 經驗反思】設計管制、製程確效與 GMP",
+          ok: cfg.gmp === "correct",
+          msgOk: "✅ 正確！落實 Design Output Meets Design Input 之驗證、構型管理 (Configuration Mgmt) 與 ISO 13485 / GMP 製程確效，確保量產品質。",
+          msgErr: "❌ 錯誤：缺乏設計歷史檔案、構型管理與 GMP 製程確效之實驗室原型無法通過查驗登記。"
+        },
+        {
+          title: "【T 知識銜接】AI 演算法、軟體確效與上市後監控",
+          ok: cfg.ai === "correct",
+          msgOk: "✅ 正確！整合醫療器材軟體確效、AI 演算法跨族群臨床驗證、ISO 14971 風險控制與上市後不良事件通報 (ISO/TS 19218 譯碼分析)。",
+          msgErr: "❌ 錯誤：AI 醫材必須嚴格驗證訓練/測試資料代表性與軟體確效，並建立上市後監控與不良事件通報機制。"
+        }
+      ];
+
+      const score = checks.filter(c => c.ok).length * 25;
+
+      if (score === 100) {
+        playSound("win");
+        fireConfetti();
+        if (!appState.cgmConfig.perfectRewarded) {
+          appState.cgmConfig.perfectRewarded = true;
+          appState.xp += 150;
+          appState.bux += 100;
+          saveState();
+          showToast("🎉 非侵入式血糖機總整藍圖 100% 合規！", "首次達成滿分配置！獲得 +150 XP 與 +100 R$ 大獎！", "#02B757");
+        } else {
+          showToast("總整藍圖檢測 100 分通過！", "你的配置已自動記錄於期末學習歷程報告中！", "#02B757");
+        }
+        diagBox.className = "mt-5 p-4 rounded-xl border-2 border-[#02B757] bg-[#02B757]/15 space-y-2 text-xs sm:text-sm";
+      } else {
+        playSound("error");
+        diagBox.className = "mt-5 p-4 rounded-xl border-2 border-[#F68802] bg-[#F68802]/15 space-y-2 text-xs sm:text-sm";
+      }
+
+      diagBox.innerHTML = `
+        <div class="font-black text-base text-white mb-2">
+          📋 「非侵入式連續監控血糖機」法規審查診斷報告（得分：${score} / 100）
+        </div>
+        ${checks.map(c => `
+          <div class="p-2.5 rounded bg-[#16181A] border ${c.ok ? 'border-[#02B757]' : 'border-[#EF4444]'}">
+            <div class="font-bold text-white">${c.title}</div>
+            <div class="text-gray-300 mt-0.5">${c.ok ? c.msgOk : c.msgErr}</div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    /********************************************************************
+     * 9. PORTFOLIO & QUEST LOG EXPORT (MARKDOWN / TXT)
+     ********************************************************************/
+    function renderPortfolioView() {
+      document.getElementById("portfolio-overall-reflection").value = appState.overallReflection || "";
+
+      const list = document.getElementById("portfolio-notes-list");
+      list.innerHTML = STAGES_DATA.map(stage => {
+        const noteText = appState.stageNotes[stage.id] || "";
+        const cleared = !!appState.clearedStages[stage.id];
+        const tasksDone = stage.tasks.filter(t => appState.completedTasks[t.id]).length;
+
+        return `
+          <div class="rbx-panel p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-[#00A2FF]">${stage.code}｜${stage.title}</span>
+              <span class="text-[11px] font-bold ${cleared ? 'text-[#02B757]' : 'text-gray-400'}">
+                ${cleared ? '✅ Boss已通關' : '⏳ 未通關'} (任務 ${tasksDone}/3)
+              </span>
+            </div>
+            <textarea
+              oninput="updateStageNoteFromPortfolio(${stage.id}, this.value)"
+              rows="3"
+              placeholder="在此補充 ${stage.code} 的自主學習心得、法規重點或專題反思..."
+              class="w-full bg-[#16181A] border border-[#393B3D] focus:border-[#00A2FF] rounded-lg p-2.5 text-xs sm:text-sm text-white placeholder-gray-500 outline-none"
+            >${noteText}</textarea>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateStageNoteFromPortfolio(stageId, val) {
+      appState.stageNotes[stageId] = val;
+      saveState();
+    }
+
+    function saveOverallReflection() {
+      appState.overallReflection = document.getElementById("portfolio-overall-reflection").value;
+      saveState();
+    }
+
+    function buildPortfolioReportText() {
+      const lvl = getLevelInfo(appState.xp);
+      const totalTasksDone = Object.keys(appState.completedTasks).length;
+      const totalBossDone = Object.keys(appState.clearedStages).length;
+      const cgmScore = [appState.cgmConfig.class, appState.cgmConfig.bio, appState.cgmConfig.gmp, appState.cgmConfig.ai].filter(v => v === "correct").length * 25;
+
+      let md = `# PRG1100 醫療器材管理與法規 — 總整課程自主學習歷程報告\n\n`;
+      md += `- **學生/玩家名稱**：${appState.playerName}\n`;
+      md += `- **修課學期與單位**：1151 學期 醫學工程學系三年級 (B12)\n`;
+      md += `- **目前等級與稱號**：Lv.${lvl.level} ${lvl.title} (${appState.xp} XP / ${appState.bux} StudyBux)\n`;
+      md += `- **闖關完成度**：已擊敗 ${totalBossDone} / 8 關 Boss ｜ 已完成 ${totalTasksDone} / 24 項自主探索任務\n`;
+      md += `- **非侵入式連續監控血糖機 (CGM) 總整沙盒合規度**：${cgmScore} / 100 分\n`;
+      md += `- **匯出時間**：${new Date().toLocaleString("zh-TW")}\n\n`;
+
+      md += `---\n\n## 一、總整課程 I-C-R-T 學期自我檢視與反思\n\n`;
+      md += `${appState.overallReflection ? appState.overallReflection : "（尚未填寫總整自我檢視）"}\n\n`;
+
+      md += `---\n\n## 二、八大關卡學習紀錄與反思筆記\n\n`;
+      STAGES_DATA.forEach(st => {
+        const cleared = appState.clearedStages[st.id] ? "✅ 已通過" : "⏳ 未通過";
+        const doneTasks = st.tasks.filter(t => appState.completedTasks[t.id]);
+        const note = appState.stageNotes[st.id] || "（本關尚未撰寫筆記）";
+
+        md += `### ${st.code}：${st.title}\n`;
+        md += `- **總整指標**：${st.icrt.join(", ")} ｜ **授課專家**：${st.instructors}\n`;
+        md += `- **Boss 測驗狀態**：${cleared} ｜ **完成探索任務數**：${doneTasks.length} / 3\n`;
+        md += `- **自主學習筆記**：\n  > ${note.replace(/\n/g, "\n  > ")}\n\n`;
+      });
+
+      return md;
+    }
+
+    function copyPortfolioMarkdown() {
+      playSound("click");
+      const text = buildPortfolioReportText();
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("已複製 Markdown 學習歷程！ 📋", "可直接貼上至期末報告、Notion 或 Word 文件中！", "#00A2FF");
+      } catch (err) {
+        showToast("複製失敗", "請改用右側「下載 .TXT 學習歷程檔」按鈕。", "#EF4444");
+      }
+      document.body.removeChild(ta);
+    }
+
+    function downloadPortfolioFile() {
+      playSound("task");
+      const text = buildPortfolioReportText();
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `PRG1100_醫材法規自主學習歷程_${appState.playerName}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("學習歷程檔案已下載！ 💾", "檔案已儲存至您的電腦下載資料夾。", "#02B757");
+    }
+
+    /********************************************************************
+     * 10. VIEW SWITCHING & MODALS (NAME EDIT / RESET / CONTROLS)
+     ********************************************************************/
+    function switchTab(tabName) {
+      playSound("click");
+      appState.currentTab = tabName;
+
+      const tabs = ["map", "stage", "badges", "portfolio"];
+      tabs.forEach(t => {
+        const viewEl = document.getElementById(`view-${t}`);
+        const btnEl = document.getElementById(`tab-btn-${t}`);
+        if (t === tabName) {
+          viewEl.classList.remove("hidden");
+          btnEl.className = "rbx-btn rbx-btn-blue px-3.5 py-1.5 text-xs sm:text-sm shrink-0";
+        } else {
+          viewEl.classList.add("hidden");
+          btnEl.className = "rbx-btn rbx-btn-dark px-3.5 py-1.5 text-xs sm:text-sm shrink-0";
+        }
+      });
+
+      if (tabName === "map") renderObbyMap();
+      else if (tabName === "stage") renderStageView();
+      else if (tabName === "badges") renderBadgesVault();
+      else if (tabName === "portfolio") renderPortfolioView();
+    }
+
+    function toggleUnlockAll() {
+      playSound("click");
+      appState.unlockAllMode = !appState.unlockAllMode;
+      saveState();
+      renderObbyMap();
+      if (appState.unlockAllMode) {
+        showToast("已開啟「🔓 自由瀏覽模式」", "現在你可以不受順序限制，自由點擊地圖上全部 8 大關卡！", "#F68802");
+      } else {
+        showToast("已切換回「🔒 標準闖關模式」", "關卡將依照 Boss 擊敗進度逐步解鎖。", "#00A2FF");
+      }
+    }
+
+    function toggleSfx() {
+      appState.sfxEnabled = !appState.sfxEnabled;
+      saveState();
+      if (appState.sfxEnabled) playSound("task");
+    }
+
+    function openNameModal() {
+      playSound("click");
+      const modal = document.getElementById("custom-modal");
+      document.getElementById("modal-title").textContent = "✏️ 修改玩家角色名稱";
+      document.getElementById("modal-body").innerHTML = `
+        <p class="mb-3">請輸入你的姓名、學號或 Roblox 風格研發代號（將顯示於頂部狀態列與匯出的學習歷程報告中）：</p>
+        <input id="modal-name-input" type="text" maxlength="24" value="${appState.playerName}" class="w-full bg-[#16181A] border-2 border-[#00A2FF] rounded-lg p-2.5 text-white font-bold outline-none" />
+      `;
+      document.getElementById("modal-actions").innerHTML = `
+        <button onclick="closeModal()" class="rbx-btn rbx-btn-dark px-4 py-2 text-xs">取消</button>
+        <button onclick="confirmNameChange()" class="rbx-btn rbx-btn-green px-4 py-2 text-xs">確認儲存</button>
+      `;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      setTimeout(() => document.getElementById("modal-name-input").focus(), 50);
+    }
+
+    function confirmNameChange() {
+      const val = document.getElementById("modal-name-input").value.trim();
+      if (val) {
+        appState.playerName = val;
+        saveState();
+        playSound("task");
+        showToast("角色名稱已更新！", `歡迎你，${val}！`, "#00A2FF");
+      }
+      closeModal();
+    }
+
+    function openResetModal() {
+      playSound("error");
+      const modal = document.getElementById("custom-modal");
+      document.getElementById("modal-title").textContent = "⚠️ 確定要重置所有闖關進度嗎？";
+      document.getElementById("modal-body").innerHTML = `
+        <p class="text-gray-300">這將會清除你目前累積的 XP、StudyBux、已解鎖徽章、CGM 沙盒配置與各關卡筆記，回到 Level 1 初始狀態。建议重置前先下載備份你的學習歷程檔！</p>
+      `;
+      document.getElementById("modal-actions").innerHTML = `
+        <button onclick="closeModal()" class="rbx-btn rbx-btn-dark px-4 py-2 text-xs">保留進度</button>
+        <button onclick="confirmResetProgress()" class="rbx-btn rbx-btn-red px-4 py-2 text-xs">確定重置</button>
+      `;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function confirmResetProgress() {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+
+    function closeModal() {
+      playSound("click");
+      const modal = document.getElementById("custom-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    /********************************************************************
+     * 11. INITIALIZATION ON WINDOW LOAD
+     ********************************************************************/
+    window.onload = function () {
+      loadState();
+      updateHUD();
+      renderObbyMap();
+      renderStageView();
+      renderBadgesVault();
+      renderPortfolioView();
+    };
+  </script>
+</body>
+</html>
